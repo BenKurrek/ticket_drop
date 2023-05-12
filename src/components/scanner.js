@@ -114,7 +114,7 @@ export const Scanner = () => {
     case Stage.preClaim:
       return (
         <>
-          <div className="content">
+          <div className="max-w-[1440px] w-3/4 mx-auto flex items-center justify-center flex-col pt-30">
           <div style={{border:"0.5rem solid white"}}><video ref={ref} /></div>
             <h2>Scan a linkdrop QR code to claim</h2>
             <h4>To re-enter password, refresh the page</h4>
@@ -124,7 +124,7 @@ export const Scanner = () => {
     case Stage.claiming:
       return (
         <>
-          <div className="content">
+          <div className="max-w-[1440px] w-3/4 mx-auto flex items-center justify-center flex-col">
             <div style={{border:"0.5rem solid yellow"}}><video ref={ref} /></div>
             <h2>Claiming</h2>
             <h4>Note this should take a few seconds</h4>
@@ -134,7 +134,7 @@ export const Scanner = () => {
     case Stage.successClaim:
       return (
         <>
-          <div className="content">
+          <div className="max-w-[1440px] w-3/4 mx-auto flex items-center justify-center flex-col">
             <div style={{border:"0.5rem solid green"}}><video ref={ref} /></div>
             <h2>Claimed!</h2>
             <img src={logo} alt="green check" width="50" height="60" className="img_center"></img>
@@ -144,7 +144,7 @@ export const Scanner = () => {
     case Stage.failClaim:
       return (
         <>
-          <div className="content">
+          <div className="max-w-[1440px] w-3/4 mx-auto flex items-center justify-center flex-col">
             <div style={{border:"0.5rem solid red"}}><video ref={ref} /></div>
             <h2>Could Not Be Claimed!</h2>
             <h3>Ensure Password is Correct</h3>
@@ -157,7 +157,7 @@ export const Scanner = () => {
       let errorMsg = `Error: masterState.stage is ${masterStatus.stage}`
       return (
         <>
-          <div className="content">
+          <div className="max-w-[1440px] w-3/4 mx-auto flex items-center justify-center flex-col">
             <h2>{ errorMsg }</h2>
             <img src={xLogo} alt="red x" width="50" height="60" className="img_center"></img>
           </div>
