@@ -1,9 +1,10 @@
-import { getPubFromSecret, getKeyInformation } from "keypom-js";
-import React from 'react'
+import { getPubFromSecret, getKeyInformation, getDropInformation } from "keypom-js";
+import React, { useState } from 'react'
 import { useEffect } from "react";
 
 
 const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) => {
+  const [data, setData] = useState()
   // These functions will run anytime the component is re-rendered 
   useEffect(() => {
     async function getUsesRemaining(privKey) {
@@ -20,11 +21,26 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
     getUsesRemaining(privKey)
   }, [privKey]);
 
+  useEffect(() => {
+    async function getKeyinfo() {
+      var publicKey = await getPubFromSecret(privKey)
+      var keyInfo = await getKeyInformation({ publicKey })
+      let data = getDropInformation({
+        dropId: keyInfo.drop_id,
+        publicKey: publicKey,
+        withKeys: true,
+      });
+      data.then((data) => {setData(data.fc.methods[1][0].args)})
+    }
+    getKeyinfo()
+  },[privKey])
+
   if (curUse == 1) {
     return (
       <div>
         <div>Public Key: {pubKey}</div>
         <div>Current Key Use: {curUse}</div>
+        <div>{data}</div>
         <h1></h1>
       </div>
     )
