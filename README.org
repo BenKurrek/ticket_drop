@@ -1,0 +1,9 @@
+#+begin_src sh :results output
+pnpm run create:ticket
+#+end_src
+
+http://localhost:3000/ticket/5Yt6Q43uPp95J77gbH8UxXRNd66WcR18jP9JtsBBueRVCQnWsqQDmQXd9f6AD4SnRxSTZGWhjVd3sPtgYU8eigt5
+http://localhost:3000/ticket/5PUEQ93yAc13Zws2q9DzjERNUGXZ4rKdyA4pthrwv2LxDReJ5dZN7wNG8HB4UC9N99p9XYCGDgXRTadWKptFh5kh
+http://localhost:3000/ticket/3DxeQfF3FWRvzY4QUH8wFSMMHRtbDSJJJSajvfunY3hMVHKfZXGYydoygY3pmMKFrXpJ7juTCktP6XLmUuroE4LR
+http://localhost:3000/ticket/5hMGdtqvEpq1qr4GXBGzNzuhJRoELHsm2TVGV6Phnbpr8sjS1PtQyPFW7afiBgYaGzb7WNuujZKyCRP5c5XgxYRv
+http://localhost:3000/ticket/5Z7qvRU5X8hKAvYjztKC5JTnrqtE431AE4qhUa2LbfiznzyiMZWfBVZutKiRNu1wMMHZcL4jMuYwnsVnedQjAPuh
