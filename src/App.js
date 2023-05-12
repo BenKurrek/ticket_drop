@@ -10,6 +10,7 @@ import { Scanner } from "./components/scanner";
 const { keyStores, connect } = nearAPI;
 
 const NETWORK_ID = "testnet";
+
 async function connectNear(privateKey, contractId){
   const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
   const connectionConfig = {
