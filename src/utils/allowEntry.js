@@ -6,7 +6,7 @@ const {
   claim
 } = keypom
 
-async function allowEntry({privKey, basePassword}) {
+export async function allowEntry({privKey, basePassword}) {
     try {
         // Check 1: Key existence
         var publicKey = await getPubFromSecret(privKey)
@@ -48,6 +48,3 @@ async function allowEntry({privKey, basePassword}) {
     return true
 }
 
-module.exports = {
-    allowEntry
-}
