@@ -1,6 +1,4 @@
-
 import { motion } from "framer-motion";
-import { TiTick } from 'react-icons/ti'
 
 const Premium = () => {
   const listVariants = {

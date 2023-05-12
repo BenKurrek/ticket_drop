@@ -1,4 +1,4 @@
-import { getPubFromSecret, getKeyInformation, getDropInformation } from "keypom-js";
+import { getPubFromSecret, getKeyInformation, getDropInformation } from "@keypom/core";
 import React, { useState } from 'react'
 import { useEffect } from "react";
 

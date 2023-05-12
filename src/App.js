@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Route, Routes } from 'react-router-dom';
 import * as nearAPI from "near-api-js";
-import { initKeypom, formatLinkdropUrl } from "keypom-js";
+import {initKeypom, formatLinkdropUrl} from '@keypom/core'
 import QrCode from "./components/qrcode";
 import KeyInfo from "./state/keyInfo";
 import { Scanner } from "./components/scanner";
@@ -75,7 +75,9 @@ function App() {
               </div>
               <h4>Screenshot and show me at the door</h4>
               <br></br>
+              <div className="flex items-center justify-center">
               <QrCode link={qrText} />
+              </div>
               <br></br>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
             </section>} />

@@ -1695,6 +1695,17 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@keypom/core@^1.0.0-rc.1":
+  version "1.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@keypom/core/-/core-1.0.0-rc.1.tgz#4042d2a7c7fac8d2e7f0949595c523399a4ee73f"
+  integrity sha512-8JSE74dLKUHhyS+XEk/wpdWTJzuFzH6iKgdmKEJrEwWnswR4xPY6642jolM9oRRgr0JQI22DkchgcQE1vDbBPA==
+  dependencies:
+    "@near-wallet-selector/core" "^8.0.3"
+    bn.js "^5.2.1"
+    borsh "^0.7.0"
+    near-seed-phrase "^0.2.0"
+    util "^0.12.5"
+
 "@ledgerhq/devices@^5.51.1":
   version "5.51.1"
   resolved "https://registry.yarnpkg.com/@ledgerhq/devices/-/devices-5.51.1.tgz#d741a4a5d8f17c2f9d282fd27147e6fe1999edb7"
@@ -2020,6 +2031,13 @@
   integrity sha512-SNIgLnI/LeU1mwBHc5wcyOrVAqhWmFXJfVIfB1P16ziH3EKMsbs/gxcKUSPuvDagm9dZm11k+FA7bxSspavibA==
   dependencies:
     rxjs "^7.8.0"
+
+"@near-wallet-selector/core@^8.0.3":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@near-wallet-selector/core/-/core-8.1.0.tgz#9886df45272cdee8466c9b751eae4d55b104e6b1"
+  integrity sha512-RqVAzVZchYiisCSSBjZjcQr+aZKpmi0tK27IiMrYoTAHUStTEN4DPOiIm4VuRXZlWI0Ciq74sIAjrsj34hlA/Q==
+  dependencies:
+    rxjs "^7.8.1"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
@@ -10910,7 +10928,7 @@ rxjs@6:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^7.8.0:
+rxjs@^7.8.0, rxjs@^7.8.1:
   version "7.8.1"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.1.tgz#6f6f3d99ea8044291efd92e7c7fcf562c4057543"
   integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==
