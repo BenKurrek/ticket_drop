@@ -1,15 +1,6 @@
 import { motion } from "framer-motion";
 
 const Hero = () => {
-  const listVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delay: 0.2, staggerChildren: 0.1 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0 },
-  };
   return (
     <motion.section
       initial={{ opacity: 0 }}

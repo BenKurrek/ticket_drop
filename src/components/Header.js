@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import logo from '../assets/near_apac.png'
+import ConnectButton from "./ConnectButton";
 
-const Header = () => {
+const Header = ({ isSignedIn, wallet }) => {
   const listVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { delay: 0.2, staggerChildren: 0.1 } },
@@ -30,7 +31,7 @@ const Header = () => {
           className="flex space-x-8 items-center justify-start"
         >
           <a href="/" className="flex items-center space-x-2 z-10">
-            <img src={logo} alt="logo" className="" width={100} height={50}/>
+            <img src={logo} alt="logo" className="" width={250} height={90}/>
           </a>
         </motion.div>
         <ul className="col-span-3 hidden lg:flex text-gray-800 font-bold space-x-4 justify-between items-center">
@@ -58,9 +59,9 @@ const Header = () => {
         </ul>
 
         {/* Right */}
-        {/* <div className="flex space-x-4 items-center justify-end"> */}
-        {/*   <ConnectButton /> */}
-        {/* </div> */}
+        <div className="flex space-x-4 items-center justify-end">
+          <ConnectButton />
+        </div>
       </motion.div>
     </motion.header>
   );

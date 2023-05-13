@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { toast } from "react-toastify"
 
 const keypom = require("@keypom/core")

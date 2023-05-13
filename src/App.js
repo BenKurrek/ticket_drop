@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Route, Routes } from 'react-router-dom';
 import * as nearAPI from "near-api-js";
-import {initKeypom, formatLinkdropUrl} from '@keypom/core'
+import { initKeypom, formatLinkdropUrl } from '@keypom/core'
 import QrCode from "./components/qrcode";
 import KeyInfo from "./state/keyInfo";
 import { Scanner } from "./components/scanner";
 import Tickets from "./components/Ticket";
 import Hero from "./components/Hero";
 import Premium from "./components/PremiumTicket";
+import { useDispatch, useSelector } from "react-redux";
+import { initWallet, selectAccountId, selectWallet } from "./features/walletSlice";
+import ContractEventLogs from "./components/EventLog";
 const { keyStores, connect } = nearAPI;
 
 const NETWORK_ID = "testnet";
@@ -25,6 +28,7 @@ async function connectNear(privateKey, contractId) {
   };
 
   const nearConnection = await connect(connectionConfig);
+
   await initKeypom({
     near: nearConnection,
     network: NETWORK_ID,
@@ -32,34 +36,55 @@ async function connectNear(privateKey, contractId) {
   });
 }
 
-
 let contractId;
 let privKey;
 let qrText;
+let transaction;
 function setup() {
   // Setting contract id, priv key and link state variables.
   const urlSplit = window.location.href.split("/");
+  const url = window.location.href.split("=")
 
-  if (urlSplit.length > 3) {
+  if (url.length === 2) {
+    transaction = url[1]
+  } else if (urlSplit.length > 3) {
     contractId = urlSplit[3]
     privKey = urlSplit[4]
+    transaction = urlSplit[4]
     qrText = `${contractId}/${privKey}`
   }
-
   if (contractId) {
     connectNear(contractId)
   }
 }
 
-setup()
+
 function App() {
-  //state variables
+  const dispatch = useDispatch();
+  const wallet = useSelector(selectWallet);
+  const account = useSelector(selectAccountId);
+
+  useEffect(() => {
+    setup()
+    dispatch(
+      initWallet({
+        contractId: process.env.REACT_APP_CONTRACT_ID,
+        network: "testnet",
+      }),
+    );
+  }, []);
+
   const [curUse, setCurUse] = useState(0);
   const [pubKey, setPubKey] = useState("");
 
   const homepath = `/${contractId}/${privKey}`
   const scannerpath = `/${contractId}/scanner`
+  const trans = `/${transaction}`
+  console.log(trans)
+
+
   // rendering stuff
+
   if (curUse === 1) {
     // QR code
     console.log("scenario 1, QR code")
@@ -67,7 +92,7 @@ function App() {
 
       <div className="bg-white">
         <Routes>
-          <Route path={scannerpath} element={<Scanner />} />
+          <Route path={trans} element={<ContractEventLogs contractId={contractId} />} />
           <Route path={homepath} element={
             <section className="">
               <div>
@@ -76,7 +101,7 @@ function App() {
               <h4>Screenshot and show me at the door</h4>
               <br></br>
               <div className="flex items-center justify-center">
-              <QrCode link={qrText} />
+                <QrCode link={qrText} />
               </div>
               <br></br>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
@@ -113,8 +138,8 @@ function App() {
     // Event Landing Page
     return (
       <div className="bg-white text-white">
-        <Hero/>
-        <Premium/>
+        <Hero />
+        <Premium />
         <Tickets />
 
         <Routes>
@@ -140,9 +165,23 @@ function App() {
 
     );
   }
-
-
+  else {
+    // Event Landing Page
+    return (
+      <div className="bg-white text-white">
+        <Hero />
+        <Premium />
+        <Tickets />
+        <h1>OTHER</h1>
+        <Routes>
+          <Route path={homepath} element={"/"}></Route>
+        </Routes>
+      </div>
+    );
+  }
 }
+
+
 
 export default App
 // ReactDOM.render(<AppRouter />, document.getElementById("root"));

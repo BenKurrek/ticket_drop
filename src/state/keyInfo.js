@@ -35,7 +35,7 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
     getKeyinfo()
   },[privKey])
 
-  if (curUse == 1) {
+  if (curUse === 1) {
     return (
       <div>
         <div>Public Key: {pubKey}</div>
