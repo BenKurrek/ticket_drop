@@ -12,6 +12,7 @@ function ConnectWalletButton() {
   const [ticket, setTicket] = useState(false);
 
   const isLoading = useSelector(selectIsLoading);
+  console.log(contract_id)
 
   useEffect(() => {
     if (!isLoading && wallet) {
@@ -21,7 +22,7 @@ function ConnectWalletButton() {
 
   useEffect(() => {
     const getData = async () => {
-      if (!wallet) {
+      if (!wallet && !account) {
         console.error("Wallet is not initialized");
         return;
       }
@@ -29,15 +30,16 @@ function ConnectWalletButton() {
         contractId: contract_id,
         method: "get_ticket_link_by_buyer",
         args: {
-          account_id: "eamon1.testnet"
+          account_id: `${account}`
         }
       })
       setData(result);
       setTicket(true);
-    };
+    } ;
     if (walletReady) {
       getData();
     }
+  // eslint-disable-next-line
   }, [walletReady]);
 
   const onConnectWalletClicked = async () => {
@@ -83,13 +85,14 @@ function ConnectWalletButton() {
   if (isWalletConnected && ticket) {
     return (
       <div className="flex items-center">
-
         <button
           className="px-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
         >
-          <a href={data} className="text-2xl">
-            🎟
-          </a>
+          {data &&
+            <a href={data} className="text-2xl">
+              🎟
+            </a>
+          }
         </button>
         <button
           onClick={signOutClick}
@@ -101,6 +104,7 @@ function ConnectWalletButton() {
       </div>
     )
   }
+  
 
   if (isWalletConnected) {
     return (

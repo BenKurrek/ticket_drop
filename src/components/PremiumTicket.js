@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectWallet } from '../features/walletSlice';
-import { motion } from 'framer-motion'; import { useRoutes } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
 
 const Premium = () => {
-  const [couponCode, setCouponCode] = useState('');
-  const [amount, setAmount] = useState(20)
+  const [email, setEmail] = useState('');
+  const [telephone, setTelephone] = useState("")
+  const [name, setName] = useState("")
   const wallet = useSelector(selectWallet);
   const listVariants = {
     hidden: { opacity: 0 },
@@ -17,7 +20,6 @@ const Premium = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [resultMessage, setResultMessage] = useState('');
 
@@ -45,11 +47,16 @@ const Premium = () => {
 
       setLoading(true); // Set loading state to true during payment processing
 
+      const args = {
+        email: email ? {Some : email} : {None: null},
+        telephone: telephone ? {Some: telephone} : {None: null}
+      }
+
       const transaction = await wallet.callMethod({
-        contractId: wallet.createAccessKeyFor,
-        method: 'purchase_ticket',
-        args: { couponCode , amount},
-        deposit: amount
+        contractId: CONTRACT_ID,
+        method: 'purchase_elite_ticket',
+        args,
+        deposit: 0
       })
 
       // Handle the result or perform any necessary actions
@@ -64,12 +71,28 @@ const Premium = () => {
     }
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const backdropVariants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
+
+  const popupVariants = {
+    visible: { opacity: 1, y: 0, scale: 1 },
+    hidden: { opacity: 0, y: -50, scale: 0.9 },
+  };
+
   return (
     <motion.section
       variants={listVariants}
       initial="hidden"
       animate="visible"
-      className="pt-8 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 max-w-[1440px] px-4 md:w-2/4 lg:w-3/4 mx-auto"
+      className="relative pt-8 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 max-w-[1440px] px-4 md:w-2/4 lg:w-3/4 mx-auto"
     >
       {/* Standard */}
       {/* PREMIUM TICKET */}
@@ -104,29 +127,61 @@ const Premium = () => {
             <li>Access to small stages in convention hall</li>
           </ul>
         </div>
-
         <div className="flex flex-col items-center justify-center text-center">
-          <form onSubmit={handleSubmit}>
-            <button type="submit" disabled={loading} className="mx-auto w-3/4 text-md font-bold py-2 bg-white text-gray-800 rounded-md hover:scale-105 transition-all duration-200 my-3">
-              {loading ? 'Processing...' : 'Buy Ticket'}
-            </button>
-            <input
-              type="text"
-              value={couponCode}
-              onChange={(e) => setCouponCode(e.target.value)}
-              placeholder="Enter coupon code"
-              className="rounded-md px-2 py-2 text-gray-800"
-            />
+          <button type="submit" onClick={togglePopup} className="px-8 py-3 bg-white text-gray-900 rounded-full hover:bg-gray-400 font-bold focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition duration-200">
+            Buy Ticket
+          </button>
+          {isOpen && (
+            <motion.div
+              className="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={backdropVariants}
+              onClick={togglePopup}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div
+                className="bg-white p-6 rounded-lg shadow-md z-20 backdrop-blur-md bg-opacity-40 border border-gray-500/50 w-[90%] md:w-[70%] lg:w-[50%] py-12"
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={popupVariants}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-6 ">
 
-            <input
-              type="text"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter Amount code"
-              className="rounded-md px-2 py-2 text-gray-800"
-            />
-          </form>
-          {resultMessage && <p>{resultMessage}</p>}
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your Name"
+                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                  />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter Your Email"
+                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                  />
+
+                  <input
+                    type="text"
+                    value={telephone}
+                    onChange={(e) => setTelephone(e.target.value)}
+                    placeholder="Your Phone Number"
+                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                  />
+                </form>
+                <button type="submit" onClick={handleSubmit} className="px-8 py-2 bg-gradient-to-br to-[#9750FD] via-[#45A3C3] from-[#4AF986] text-white font-bold rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50">
+                  {loading ? 'Processing...' : 'Buy Ticket'}
+                </button>
+                {resultMessage && <p>{resultMessage}</p>}
+              </motion.div>
+            </motion.div>
+          )}
         </div>
       </motion.div>
     </motion.section>

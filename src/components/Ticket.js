@@ -62,7 +62,7 @@ const Tickets = () => {
             STANDARD <br />
             (PLASTIC/BRACELET)
           </h1>
-          <h2 className="flex items-center justify-center">
+          <h2 className="flex items-center justify-center line-through">
             <span className="font-bold text-[20px] md:text-[30px]">$</span>
             <span className="font-bold text-[60px] md:text-[80px] flex items-center">39</span>
             <span className="text-[30px]">,00</span>
