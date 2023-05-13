@@ -9,9 +9,9 @@ import { Scanner } from "./components/scanner";
 import Tickets from "./components/Ticket";
 import Hero from "./components/Hero";
 import Premium from "./components/PremiumTicket";
-import { useDispatch, useSelector } from "react-redux";
-import { initWallet, selectAccountId, selectWallet } from "./features/walletSlice";
-import ContractEventLogs from "./components/EventLog";
+import { useDispatch } from "react-redux";
+import { initWallet } from "./features/walletSlice";
+import TicketOnwer from "./components/TicketOwner";
 const { keyStores, connect } = nearAPI;
 
 const NETWORK_ID = "testnet";
@@ -39,18 +39,13 @@ async function connectNear(privateKey, contractId) {
 let contractId;
 let privKey;
 let qrText;
-let transaction;
 function setup() {
   // Setting contract id, priv key and link state variables.
   const urlSplit = window.location.href.split("/");
-  const url = window.location.href.split("=")
 
-  if (url.length === 2) {
-    transaction = url[1]
-  } else if (urlSplit.length > 3) {
+  if (urlSplit.length > 3) {
     contractId = urlSplit[3]
     privKey = urlSplit[4]
-    transaction = urlSplit[4]
     qrText = `${contractId}/${privKey}`
   }
   if (contractId) {
@@ -59,13 +54,14 @@ function setup() {
 }
 
 
+setup()
+
 function App() {
   const dispatch = useDispatch();
-  const wallet = useSelector(selectWallet);
-  const account = useSelector(selectAccountId);
+  const urlParams = new URLSearchParams(window.location.search);
+  const transactionHash = urlParams.get('transactionHashes');
 
   useEffect(() => {
-    setup()
     dispatch(
       initWallet({
         contractId: process.env.REACT_APP_CONTRACT_ID,
@@ -79,8 +75,6 @@ function App() {
 
   const homepath = `/${contractId}/${privKey}`
   const scannerpath = `/${contractId}/scanner`
-  const trans = `/${transaction}`
-  console.log(trans)
 
 
   // rendering stuff
@@ -92,7 +86,7 @@ function App() {
 
       <div className="bg-white">
         <Routes>
-          <Route path={trans} element={<ContractEventLogs contractId={contractId} />} />
+          <Route path={scannerpath} element={<Scanner />} />
           <Route path={homepath} element={
             <section className="">
               <div>
@@ -130,10 +124,20 @@ function App() {
             </>} />
         </Routes>
       </div>
-
-
     );
   }
+  else if (curUse === 0 && transactionHash) {
+    return (
+      <div className="bg-white text-gray-800">
+        <Hero>Your Ticket Here</Hero>
+        <TicketOnwer/>
+        <Routes>
+          <Route path={homepath} element={"/"}></Route>
+        </Routes>
+      </div>
+    );
+  }
+
   else if (curUse === 0 && !contractId && !privKey) {
     // Event Landing Page
     return (
@@ -141,42 +145,27 @@ function App() {
         <Hero />
         <Premium />
         <Tickets />
-
         <Routes>
           <Route path={homepath} element={"/"}></Route>
         </Routes>
       </div>
     );
   }
+
   else if (curUse === 0) {
     return (
-
       <div className="bg-white">
         <Routes>
           <Route path={scannerpath} element={<Scanner />} />
           <Route path={homepath} element={
             <>
               <h1>Now that you have a wallet...</h1>
-              <a href={"https://near.org/learn/#anker_near"} target="_blank" rel="noopener noreferrer"><button className="onboard_button">Continue your journey into NEAR</button></a>
+              <a href={"https://nearapac.org/"} target="_blank" rel="noopener noreferrer"><button className="onboard_button">Continue your journey into NEAR</button></a>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
             </>} />
         </Routes>
       </div>
 
-    );
-  }
-  else {
-    // Event Landing Page
-    return (
-      <div className="bg-white text-white">
-        <Hero />
-        <Premium />
-        <Tickets />
-        <h1>OTHER</h1>
-        <Routes>
-          <Route path={homepath} element={"/"}></Route>
-        </Routes>
-      </div>
     );
   }
 }

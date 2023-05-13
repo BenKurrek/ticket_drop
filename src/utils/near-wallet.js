@@ -133,7 +133,7 @@ export class Wallet {
       throw new Error("Please! Login the Wallet");
     }
     // Sign a transaction with the "FunctionCall" action
-    return await this.wallet.signAndSendTransaction({
+    let transaction = await this.wallet.signAndSendTransaction({
       signerId: this.accountId,
       receiverId: contractId,
       actions: [
@@ -148,6 +148,8 @@ export class Wallet {
         },
       ],
     });
+    let result = this.getTransactionResult(transaction);
+    return result;
   }
 
   // Get transaction result from the network

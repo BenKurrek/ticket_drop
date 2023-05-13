@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectWallet } from '../features/walletSlice';
-import { motion } from 'framer-motion';
-import { useRoutes } from 'react-router-dom';
+import { motion } from 'framer-motion'; import { useRoutes } from 'react-router-dom';
 
 const Premium = () => {
   const [couponCode, setCouponCode] = useState('');
@@ -49,7 +48,7 @@ const Premium = () => {
       const transaction = await wallet.callMethod({
         contractId: wallet.createAccessKeyFor,
         method: 'purchase_ticket',
-        args: { couponCode},
+        args: { couponCode , amount},
         deposit: amount
       })
 
@@ -64,9 +63,6 @@ const Premium = () => {
       setLoading(false); // Set loading state back to false after payment processing is completed
     }
   }
-
-  const pathname = window.location.pathname
-  console.log(pathname)
 
   return (
     <motion.section

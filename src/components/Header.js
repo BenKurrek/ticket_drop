@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import logo from '../assets/near_apac.png'
 import ConnectButton from "./ConnectButton";
 
-const Header = ({ isSignedIn, wallet }) => {
+const Header = () => {
   const listVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { delay: 0.2, staggerChildren: 0.1 } },

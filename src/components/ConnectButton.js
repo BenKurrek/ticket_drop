@@ -1,9 +1,45 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectWallet } from "../features/walletSlice";
+import { selectAccountId, selectIsLoading, selectWallet } from "../features/walletSlice";
+
+const contract_id = process.env.REACT_APP_CONTRACT_ID
 
 function ConnectWalletButton() {
   const wallet = useSelector(selectWallet);
+  const account = useSelector(selectAccountId)
+  const [data, setData] = useState();
+  const [walletReady, setWalletready] = useState(false);
+  const [ticket, setTicket] = useState(false);
+
+  const isLoading = useSelector(selectIsLoading);
+
+  useEffect(() => {
+    if (!isLoading && wallet) {
+      setWalletready(true);
+    }
+  }, [isLoading, wallet]);
+
+  useEffect(() => {
+    const getData = async () => {
+      if (!wallet) {
+        console.error("Wallet is not initialized");
+        return;
+      }
+      const result = await wallet.viewMethod({
+        contractId: contract_id,
+        method: "get_ticket_link_by_buyer",
+        args: {
+          account_id: "eamon1.testnet"
+        }
+      })
+      setData(result);
+      setTicket(true);
+    };
+    if (walletReady) {
+      getData();
+    }
+  }, [walletReady]);
+
   const onConnectWalletClicked = async () => {
     if (!wallet)
       return {
@@ -42,21 +78,53 @@ function ConnectWalletButton() {
 
   const isWalletConnected = !!wallet?.accountId;
 
-  return isWalletConnected ? (
-    <button
-      onClick={signOutClick}
-      className="border border-gray-600 px-4 py-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
-    >
-      {wallet.accountId?.split(".")[0]}
-    </button>
-  ) : (
-    <button
-      onClick={onConnectWalletClicked}
-      className="border border-gray-600 px-4 py-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
-    >
-      Connect
-    </button>
-  );
+
+
+  if (isWalletConnected && ticket) {
+    return (
+      <div className="flex items-center">
+
+        <button
+          className="px-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+        >
+          <a href={data} className="text-2xl">
+            🎟
+          </a>
+        </button>
+        <button
+          onClick={signOutClick}
+          className="border border-gray-600 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+        >
+          Logout
+        </button>
+
+      </div>
+    )
+  }
+
+  if (isWalletConnected) {
+    return (
+      <>
+        <button
+          onClick={signOutClick}
+          className="border border-gray-600 px-4 py-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+        >
+          {wallet.accountId?.split(".")[0]}
+        </button>
+      </>
+    )
+  }
+
+  if (!isWalletConnected) {
+    return (
+      <button
+        onClick={onConnectWalletClicked}
+        className="border border-gray-600 px-4 py-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+      >
+        Connect
+      </button>
+    )
+  }
 }
 
 export default memo(ConnectWalletButton);
