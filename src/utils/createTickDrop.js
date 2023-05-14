@@ -60,7 +60,6 @@ async function createTickDrop() {
             args: "ELITE",
             dropIdField: "mint_id",
             accountIdField: "receiver_id",
-            attachedDeposit: BigInt("0"),
           }
         ],
       ]
