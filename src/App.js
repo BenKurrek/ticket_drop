@@ -89,7 +89,7 @@ function App() {
           <Route path={homepath} element={
             <section className="pt-20">
               <div className="flex items-center justify-center pb-2">
-                <QrCode link={qrText}  />
+                <QrCode link={qrText} />
                 {/* <TicketOnwer /> */}
               </div>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />

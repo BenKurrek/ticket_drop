@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { selectAccountId, selectIsLoading, selectWallet } from "../features/walletSlice"
+import KeyInfo from "../state/keyInfo"
 import QrCode from "./qrcode"
 
 const contract_id = process.env.REACT_APP_CONTRACT_ID
@@ -42,7 +43,7 @@ const TicketOnwer = () => {
           }));
           setData(resultArray);
         }
-      } 
+      }
     };
 
     if (walletReady) {
@@ -50,15 +51,30 @@ const TicketOnwer = () => {
     }
   }, [walletReady]);
 
-  return (
-    <div className="text-gray-800 flex items-center justify-center text-center align-center space-x-8 py-10">
-      {data.map((ticket) => (
-        <a href={ticket} key={ticket}>
-          <QrCode link={ticket} />
-        </a>
-      ))}
-    </div>
-  )
+  if (data.length >= 2) {
+    return (
+      <div className="text-gray-800 grid grid-cols-2 items-center justify-center text-center gap-8">
+        {data.map((ticket) => (
+          <a href={ticket} key={ticket}>
+            <QrCode link={ticket} ticket={ticket} />
+          </a>
+        ))}
+      </div>
+    )
+  }
+
+  if (data.length == 1) {
+    return (
+      <div className="text-gray-800 flex items-center justify-center text-center gap-8">
+        {data.map((ticket) => (
+          <a href={ticket} key={ticket}>
+            <QrCode link={ticket} ticket={ticket} />
+          </a>
+        ))}
+      </div>
+    )
+  }
 }
+
 
 export default TicketOnwer
