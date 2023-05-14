@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const HOST = process.env.REACT_APP_HOST
+const HOST = process.env.REACT_APP_HOST | "https://ticket-drop.vercel.app"
 
 const TicketStandard = () => {
   const listVariants = {

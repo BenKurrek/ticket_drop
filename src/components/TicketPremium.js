@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { selectWallet } from "../features/walletSlice";
 
 
-const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
+const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID 
+
+const HOST = process.env.REACT_APP_HOST | "https://ticket-drop.vercel.app"
 
 
-const Tickets = () => {
+const TicketPremium = () => {
   const wallet = useSelector(selectWallet);
   const [ticketLink, setTicketLink] = useState("")
   const [email, setEmail] = useState('');
@@ -26,14 +28,9 @@ const Tickets = () => {
   };
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isEliteOpen, setIsEliteOpen] = useState(false);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
-  };
-
-  const toggleElitePopup = () => {
-    setIsEliteOpen(!isEliteOpen);
   };
 
   const backdropVariants = {
@@ -105,40 +102,6 @@ const Tickets = () => {
     }
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      if (!wallet) {
-        // Wallet not initialized, call initWallet first
-        console.log("Error")
-      }
-
-      setLoading(true); // Set loading state to true during payment processing
-
-      const args = {
-        email: email ? email : "",
-        telephone: telephone ? telephone : "",
-      }
-
-      const transaction = await wallet.callMethod({
-        contractId: CONTRACT_ID,
-        method: 'purchase_elite_ticket',
-        args,
-        deposit: 0
-      })
-
-      // Handle the result or perform any necessary actions
-      // Retrieve transaction result
-      const result = await wallet.getTransactionResult(transaction.transaction.hash);
-      setResultMessage('Ticket purchased successfully. Result: ' + result);
-      // Payment successful
-    } catch (error) {
-      handleAssertionError("Error: " + error.message)
-    } finally {
-      setLoading(false); // Set loading state back to false after payment processing is completed
-    }
-
   }
   return (
     <motion.section
@@ -155,8 +118,8 @@ const Tickets = () => {
         animate="visible"
         className="flex text-black justify-center font-bold gap-4 text-white items-center rounded-full py-8 col-span-3 col-start-2 text-white"
       >
-        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${process.env.REACT_APP_HOST}/standard`}>STANDARD TICKET</Link>
-        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${process.env.REACT_APP_HOST}/elite`}>ELITE TICKET</Link>
+        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/standard`}>STANDARD TICKET</Link>
+        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/elite`}>ELITE TICKET</Link>
       </motion.div>
       <motion.div
         variants={itemVariants}
@@ -262,4 +225,4 @@ const Tickets = () => {
 };
 
 
-export default Tickets;
+export default TicketPremium
