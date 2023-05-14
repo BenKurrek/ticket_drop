@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import HeaderTop from './components/TopHeader';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import Routers from './Routes';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -21,9 +22,10 @@ root.render(
         <div className="relative z-20 shadow-b shadow-2xl shadow-blue-300">
           <HeaderTop />
           <Header />
-          <div className="fixed font-bold text-white bg-orange-600 hover:scale-105 transition-all duration-200 hover:bg-orange-900 animate-bounce rounded-xl shadow shadow-xl px-8 py-4 right-5 bottom-5">Dont be late, quantities are limited</div>
         </div>
-        <App />
+        <Routers>
+          <App />
+        </Routers>
         <Footer />
         <ToastContainer
           position="bottom-center"
@@ -37,6 +39,7 @@ root.render(
           pauseOnHover
           theme="light"
         />
+
       </BrowserRouter>
     </React.StrictMode>
   </Provider>
