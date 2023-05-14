@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectWallet } from "../features/walletSlice";
 
 
@@ -154,8 +155,8 @@ const Tickets = () => {
         animate="visible"
         className="flex text-black justify-center font-bold gap-4 text-white items-center rounded-full py-8 col-span-3 col-start-2 text-white"
       >
-        <a className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" href={`${process.env.REACT_APP_HOST}/standard`}>STANDARD TICKET</a>
-        <a className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" href={`${process.env.REACT_APP_HOST}/elite`}>ELITE TICKET</a>
+        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${process.env.REACT_APP_HOST}/standard`}>STANDARD</Link>
+        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${process.env.REACT_APP_HOST}/elite`}>ELITE</Link>
       </motion.div>
       <motion.div
         variants={itemVariants}

@@ -53,7 +53,7 @@ const TicketOnwer = () => {
 
   if (data.length >= 2) {
     return (
-      <div className="text-gray-800 grid grid-cols-2 items-center justify-center text-center gap-8">
+      <div className="text-gray-800 grid grid-cols-1 lg:grid-cols-2 items-center justify-center text-center gap-8">
         {data.map((ticket) => (
           <a href={ticket} key={ticket}>
             <QrCode link={ticket} ticket={ticket} />

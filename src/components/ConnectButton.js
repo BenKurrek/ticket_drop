@@ -4,8 +4,6 @@ import { selectAccountId, selectIsLoading, selectWallet } from "../features/wall
 
 const contract_id = process.env.REACT_APP_CONTRACT_ID
 
-
-
 function ConnectWalletButton() {
   const wallet = useSelector(selectWallet);
   const account = useSelector(selectAccountId)
@@ -72,13 +70,6 @@ function ConnectWalletButton() {
     }
 
     wallet.signIn();
-
-    const isSignedIn = await wallet.startUp();
-
-    if (isSignedIn) {
-      // Redirect to the home page
-      window.location.reload()
-    }
   };
 
   const signOutClick = async () => {
@@ -101,7 +92,7 @@ function ConnectWalletButton() {
           className="px-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
         >
           {ticket &&
-           <a href={`${process.env.REACT_A}/?transactionHashes=${account}`} className="text-[30px] md:text-[50px]">
+           <a href={`${process.env.REACT_APP_HOST}/?transactionHashes=${account}`} className="text-[30px] md:text-[50px]">
               🎟
             </a>
           }

@@ -7,14 +7,13 @@ import KeyInfo from "./state/keyInfo";
 import { Scanner } from "./components/scanner";
 import Tickets from "./components/Ticket";
 import Hero from "./components/Hero";
-import Premium from "./components/PremiumTicket";
 import { useDispatch } from "react-redux";
 import { initWallet } from "./features/walletSlice";
 import TicketOnwer from "./components/TicketOwner";
 import QrCode from "./components/qrcode";
 const { keyStores, connect } = nearAPI;
 
-const NETWORK_ID = "testnet";
+const NETWORK_ID = "testnet"
 
 export async function connectNear(privateKey, contractId) {
   const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
@@ -65,7 +64,7 @@ function App() {
     dispatch(
       initWallet({
         contractId: process.env.REACT_APP_CONTRACT_ID,
-        network: "testnet",
+        network: NETWORK_ID,
       }),
     );
   }, []);
