@@ -21,6 +21,7 @@ root.render(
         <div className="relative z-20 shadow-b shadow-2xl shadow-blue-300">
           <HeaderTop />
           <Header />
+          <div className="fixed font-bold text-white bg-orange-600 hover:scale-105 transition-all duration-200 hover:bg-orange-900 animate-bounce rounded-xl shadow shadow-xl px-8 py-4 right-5 bottom-5">Dont be late, quantities are limited</div>
         </div>
         <App />
         <Footer />

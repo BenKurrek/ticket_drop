@@ -74,7 +74,7 @@ const Tickets = () => {
       setLoading(true); // Set loading state to true during payment processing
 
       const args = {
-        email: email ?  email  :  "",
+        email: email ? email : "",
         telephone: telephone ? telephone : "",
       }
 
@@ -151,16 +151,10 @@ const Tickets = () => {
         variants={itemVariants}
         initial="hidden"
         animate="visible"
-        className="bg-[#222] flex flex-col items-center justify-between rounded-2xl py-8 "
+        className="bg-[#222] shadow-xl shadow-gray-500/50 flex flex-col items-center justify-between rounded-2xl py-8 "
       >
         <div>
           <h1 className="font-bold text-xl md:text-2xl text-gray-400">STANDARD</h1>
-          <h2 className="flex items-center justify-center group relative">
-            <div className="h-[8px] w-4/5 -rotate-12 bg-red-500 absolute" />
-            <span className="font-bold text-[20px] md:text-[30px] ">$</span>
-            <span className="font-bold text-[60px] md:text-[80px] flex items-center">0</span>
-            <span className="text-[20px] md:text-[30px]">,00</span>
-          </h2>
         </div>
         <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
           <span className="px-8 md:px-4 py-2"> - 2 Full days of conference with industry experts and joining booths and stages activities</span>
@@ -171,6 +165,13 @@ const Tickets = () => {
             - Chance to upgrade to Elite ticket after completing quests
           </span>
         </div>
+
+        <h2 className="flex items-center justify-center group relative">
+          <div className="h-[8px] w-4/5 -rotate-12 bg-red-500 absolute" />
+          <span className="font-bold text-[20px] md:text-[30px] ">$</span>
+          <span className="font-bold text-[60px] md:text-[80px] flex items-center">0</span>
+          <span className="text-[20px] md:text-[30px]">,00</span>
+        </h2>
         <button className="mx-auto w-3/4 text-md mt-4 font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-2xl hover:scale-105 transition-all duration-200">
           Buy Tickets
         </button>
@@ -181,20 +182,13 @@ const Tickets = () => {
         variants={itemVariants}
         initial="hidden"
         animate="visible"
-        className="bg-[#222] flex flex-col items-center justify-between rounded-2xl py-8"
+        className="bg-[#222] shadow-xl shadow-gray-500/50 flex flex-col items-center justify-between rounded-2xl py-8"
       >
-        <div >
+        <div className="">
           <h1 className="font-bold text-xl md:text-2xl text-gray-400 text-center">
             ELITE TICKET <br />
             (PLASTIC/BRACELET)
           </h1>
-          <h2 className="flex items-center justify-center relative">
-            <div className="h-[8px] w-4/5 -rotate-12 bg-red-500 absolute" />
-            <div className="rotate-[20deg] right-0 font-bold top-3 px-4 py-1 bg-yellow-500 absolute">FREE NOW</div>
-            <span className="font-bold text-[20px] md:text-[30px]">$</span>
-            <span className="font-bold text-[60px] md:text-[80px] flex items-center">39</span>
-            <span className="text-[30px]">,00</span>
-          </h2>
         </div>
         <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
           <span className="px-8 md:px-4 py-2"> - 2 Full days of conference with industry experts and joining booths and stages activities</span>
@@ -211,6 +205,15 @@ const Tickets = () => {
             - Join all games during the conference to share the the prize pool of 300 million VND
           </span>
         </div>
+
+        <h2 className="flex items-center justify-center relative">
+          <div className="h-[8px] w-4/5 -rotate-12 bg-red-500 absolute" />
+          <div className="rotate-[20deg] right-0 font-bold top-3 px-4 py-1 bg-yellow-500 absolute">FREE NOW</div>
+          <div className="rotate-[20deg] animate-ping right-0 font-bold top-3 px-4 py-1 bg-yellow-500 absolute">FREE NOW</div>
+          <span className="font-bold text-[20px] md:text-[30px]">$</span>
+          <span className="font-bold text-[60px] md:text-[80px] flex items-center">39</span>
+          <span className="text-[30px]">,00</span>
+        </h2>
         <button onClick={toggleElitePopup} className="mt-4 mx-auto w-3/4 text-md font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-2xl hover:scale-105 transition-all duration-200">
           Get Ticket
         </button>
@@ -274,20 +277,12 @@ const Tickets = () => {
         variants={itemVariants}
         initial="hidden"
         animate="visible"
-        className="bg-gradient-to-tr md:col-span-2 lg:col-span-1 from-[#30CFE5] to-[#0C4EAD] flex flex-col items-center justify-center rounded-2xl py-8"
+        className="bg-gradient-to-tr md:col-span-2 lg:col-span-1 from-[#30CFE5] to-[#0C4EAD] flex flex-col shadow-xl shadow-cyan-400/80 items-center justify-center rounded-2xl py-8"
       >
-        <div>
-          <h1 className="font-bold text-2xl text-white text-center">
-            PREMIUM TICKET{" "}
-          </h1>
-          <h2 className="flex items-center justify-center">
-            <span className="font-bold text-[20px] md:text-[30px]">$</span>
-            <span className="font-bold text-[60px] md:text-[80px] flex items-center">
-              999
-            </span>
-            <span className="text-[20px] md:text-[30px]">,00</span>
-          </h2>
-        </div>
+
+        <h1 className="font-bold text-[30px] pb-8 text-white text-center">
+          PREMIUM TICKET{" "}
+        </h1>
         <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
           <span className="px-8 md:px-4 py-2">- 2 Full days of conference with industry experts and joining booths and stages activities</span>
           <span className="px-8 md:px-4 py-2">
@@ -310,63 +305,72 @@ const Tickets = () => {
             - Receive Premium Event Gift set from NEAR APAC 2023.
           </span>
         </div>
+        <div>
+          <h2 className="flex items-center justify-center">
+            <span className="font-bold text-[20px] md:text-[30px]">$</span>
+            <span className="font-bold text-[60px] md:text-[80px] flex items-center">
+              999
+            </span>
+            <span className="text-[20px] md:text-[30px]">,00</span>
+          </h2>
+        </div>
 
         <button onClick={togglePopup} className="mx-auto w-3/4 text-md font-bold py-2 bg-white text-gray-800 rounded-2xl hover:scale-105 transition-all duration-200">
           Buy Tickets
         </button>
 
-          {isOpen && (
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={backdropVariants}
+            onClick={togglePopup}
+            transition={{ duration: 0.2 }}
+          >
             <motion.div
-              className="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center"
+              className="bg-white p-6 rounded-lg shadow-md z-20 backdrop-blur-md bg-opacity-80  text-gray-800 border border-gray-500/50 w-[90%] md:w-[70%] lg:w-[50%] py-12"
               initial="hidden"
               animate="visible"
               exit="hidden"
-              variants={backdropVariants}
-              onClick={togglePopup}
-              transition={{ duration: 0.2 }}
+              variants={popupVariants}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <motion.div
-                className="bg-white p-6 rounded-lg shadow-md z-20 backdrop-blur-md bg-opacity-80  text-gray-800 border border-gray-500/50 w-[90%] md:w-[70%] lg:w-[50%] py-12"
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={popupVariants}
-                transition={{ duration: 0.3 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <form onSubmit={handleSubmitPremium} className="flex flex-col space-y-2 ">
-                  <h1 className="flex items-center text-center justify-center font-bold text-2xl text-gray-600">Premium Ticket</h1>
-                  <div className="flex flex-col">
-                    <h1 className="items items-start justify-start text-left semibold">Email</h1>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
-                    />
-                  </div>
-
-
-                  <div className="flex flex-col">
-                    <h1 className="items items-start justify-start text-left semibold">Phone Number</h1>
-                    <input
-                      type="text"
-                      value={telephone}
-                      onChange={(e) => setTelephone(e.target.value)}
-                      className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
-                    />
-                  </div>
-                </form>
-
-                <button type="submit" onClick={handleSubmitPremium} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white   rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 font-bold">
-                  {loading ? 'Processing...' : 'Buy Ticket'}
-                </button>
-                <div className="flex items-center text-center justify-center font-semibold mt-6">
-                  {resultMessage && <p>{resultMessage}</p>}
+              <form onSubmit={handleSubmitPremium} className="flex flex-col space-y-2 ">
+                <h1 className="flex items-center text-center justify-center font-bold text-2xl text-gray-600">Premium Ticket</h1>
+                <div className="flex flex-col">
+                  <h1 className="items items-start justify-start text-left semibold">Email</h1>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                  />
                 </div>
-              </motion.div>
+
+
+                <div className="flex flex-col">
+                  <h1 className="items items-start justify-start text-left semibold">Phone Number</h1>
+                  <input
+                    type="text"
+                    value={telephone}
+                    onChange={(e) => setTelephone(e.target.value)}
+                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                  />
+                </div>
+              </form>
+
+              <button type="submit" onClick={handleSubmitPremium} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white   rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 font-bold">
+                {loading ? 'Processing...' : 'Buy Ticket'}
+              </button>
+              <div className="flex items-center text-center justify-center font-semibold mt-6">
+                {resultMessage && <p>{resultMessage}</p>}
+              </div>
             </motion.div>
-          )}
+          </motion.div>
+        )}
       </motion.div>
     </motion.section>
   );
