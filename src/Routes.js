@@ -13,7 +13,6 @@ const Routers = () => {
       <Route path="standard" element={<TicketStandard />}></Route>
     </Routes >
   )
-
 }
 
 export default Routers
