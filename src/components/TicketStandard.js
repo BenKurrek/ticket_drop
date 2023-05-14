@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+const HOST = process.env.REACT_APP_HOST
+
 const TicketStandard = () => {
   const listVariants = {
     hidden: { opacity: 0 },
@@ -11,6 +13,7 @@ const TicketStandard = () => {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
   };
+  console.log(HOST)
 
   return (
     <motion.section
@@ -26,8 +29,8 @@ const TicketStandard = () => {
         animate="visible"
         className="flex text-black justify-center font-bold gap-4 text-white items-center rounded-full py-8 col-span-3 col-start-2 text-white"
       >
-        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${process.env.REACT_APP_HOST}/elite`}>ELITE TICKET</Link>
-        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${process.env.REACT_APP_HOST}/premium`}>PREMIUM TICKET</Link>
+        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/elite`}>ELITE TICKET</Link>
+        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/premium`}>PREMIUM TICKET</Link>
       </motion.div>
       <motion.div
         variants={itemVariants}
