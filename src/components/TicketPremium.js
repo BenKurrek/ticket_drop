@@ -4,11 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectWallet } from "../features/walletSlice";
 
-
 const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID 
-
-const HOST = process.env.REACT_APP_HOST | "https://ticket-drop.vercel.app"
-
 
 const TicketPremium = () => {
   const wallet = useSelector(selectWallet);
@@ -117,8 +113,8 @@ const TicketPremium = () => {
         animate="visible"
         className="flex text-black justify-center font-bold gap-4 text-white items-center rounded-full py-8 col-span-3 col-start-2 text-white"
       >
-        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/standard`}>STANDARD TICKET</Link>
-        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/elite`}>ELITE TICKET</Link>
+        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`https://ticket-drop.vercel.app/standard`}>STANDARD TICKET</Link>
+        <Link className="bg-gradient-to-r from-cyan-300 to-blue-600 px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`https://ticket-drop.vercel.app/elite`}>ELITE TICKET</Link>
       </motion.div>
       <motion.div
         variants={itemVariants}

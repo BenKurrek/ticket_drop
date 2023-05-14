@@ -106,8 +106,8 @@ const TicketElite = () => {
         animate="visible"
         className="flex text-black justify-center font-bold gap-4 text-white items-center rounded-full py-8 col-span-3 col-start-2 text-white"
       >
-        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/standard`}>STANDARD TICKET</Link>
-        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`${HOST}/premium`}>PREMIUM TICKET</Link>
+        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={`https://ticket-drop.vercel.app/standard`}>STANDARD TICKET</Link>
+        <Link className="bg-gradient-to-r from-gray-700 to-black px-8 py-3 text-white hover:scale-105 transition-all duration-200 rounded-full" to={"https://ticket-drop.vercel.app/premium"}>PREMIUM TICKET</Link>
       </motion.div>
       <motion.div
         variants={itemVariants}

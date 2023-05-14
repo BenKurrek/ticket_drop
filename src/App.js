@@ -14,6 +14,7 @@ import QrCode from "./components/qrcode";
 const { keyStores, connect } = nearAPI;
 
 const NETWORK_ID = "testnet"
+const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
 
 export async function connectNear(privateKey, contractId) {
   const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
@@ -59,6 +60,8 @@ function App() {
   const dispatch = useDispatch();
   const urlParams = new URLSearchParams(window.location.search);
   const transactionHash = urlParams.get('transactionHashes');
+
+  console.log(CONTRACT_ID)
 
   useEffect(() => {
     dispatch(
