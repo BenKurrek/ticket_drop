@@ -1,6 +1,9 @@
+require('dotenv').config()
 const path = require("path");
 const homedir = require("os").homedir();
-const { keyStores, connect, Account } = require("near-api-js");
+const { UnencryptedFileSystemKeyStore } = require("@near-js/keystores-node");
+const { Account } = require('@near-js/accounts');
+const { Near } = require("@near-js/wallet-account");
 
 const keypom = require("@keypom/core");
 const {
@@ -12,26 +15,26 @@ const {
 } = keypom
 
 // Change this to your account ID
-const FUNDER_ACCOUNT_ID = "eamondang.testnet";
+const FUNDER_ACCOUNT_ID = "benjiman.testnet";
 const NETWORK_ID = "testnet";
 async function createTickDrop() {
   // Initiate connection to the NEAR blockchain.
-  const CREDENTIALS_DIR = ".near-credentials";
-  const credentialsPath = path.join(homedir, CREDENTIALS_DIR);
+  const CREDENTIALS_DIR = '.near-credentials';
+  const credentialsPath =  path.join(homedir, CREDENTIALS_DIR);
 
-  let keyStore = new keyStores.UnencryptedFileSystemKeyStore(credentialsPath);
+  let keyStore = new UnencryptedFileSystemKeyStore(credentialsPath);  
 
   let nearConfig = {
-    networkId: NETWORK_ID,
-    keyStore: keyStore,
-    nodeUrl: `https://rpc.${NETWORK_ID}.near.org`,
-    walletUrl: `https://wallet.${NETWORK_ID}.near.org`,
-    helperUrl: `https://helper.${NETWORK_ID}.near.org`,
-    explorerUrl: `https://explorer.${NETWORK_ID}.near.org`,
-  };
+      networkId: NETWORK_ID,
+      keyStore: keyStore,
+      nodeUrl: `https://rpc.${NETWORK_ID}.near.org`,
+      walletUrl: `https://wallet.${NETWORK_ID}.near.org`,
+      helperUrl: `https://helper.${NETWORK_ID}.near.org`,
+      explorerUrl: `https://explorer.${NETWORK_ID}.near.org`,
+  };  
 
-  let near = await connect(nearConfig);
-  const fundingAccount = new Account(near.connection, FUNDER_ACCOUNT_ID)
+  let near = new Near(nearConfig);
+  const fundingAccount = new Account(near.connection, FUNDER_ACCOUNT_ID);
 
   // If a NEAR connection is not passed in and is not already running, initKeypom will create a new connection
   // Here we are connecting to the testnet network
