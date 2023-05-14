@@ -46,20 +46,25 @@ const QrCode = ({ link, ticket }) => {
 
   return (
     <div className="qrcode__container">
-      <div>{qrcode}</div>
       {type == "ELITE" &&
-        <button
-          className="mt-4 border bg-gradient-to-tr from-cyan-400 to-blue-700 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
-        >
-          {type} Ticket
-        </button>
+        <div>
+          <div className="bg-gradient-to-r from-cyan-500 via-yellow-500 to-blue-500 p-1">{qrcode}</div>
+          <button
+            className="mt-4 border bg-gradient-to-tr from-cyan-400 to-blue-700 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+          >
+            {type} Ticket
+          </button>
+        </div>
       }
       {type == "PREMIUM" &&
-        <button
-          className="mt-4 border bg-gradient-to-tr from-red-500 to-pink-800 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
-        >
-          {type} Ticket
-        </button>
+        <div>
+          <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">{qrcode}</div>
+          <button
+            className="mt-4 border bg-gradient-to-tr from-red-500 to-pink-800 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+          >
+            {type} Ticket
+          </button>
+        </div>
       }
 
     </div>
