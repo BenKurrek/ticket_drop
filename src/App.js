@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import * as nearAPI from "near-api-js";
-import { initKeypom, formatLinkdropUrl} from '@keypom/core'
+import { initKeypom, formatLinkdropUrl } from '@keypom/core'
 import KeyInfo from "./state/keyInfo";
 import { Scanner } from "./components/scanner";
 import Tickets from "./components/Ticket";
@@ -47,7 +47,7 @@ function setup() {
   if (urlSplit.length > 3) {
     contractId = urlSplit[3]
     privKey = urlSplit[4]
-    qrText =  `${contractId}/${privKey}`
+    qrText = `${contractId}/${privKey}`
   }
 
   if (contractId) {
@@ -90,7 +90,7 @@ function App() {
           <Route path={homepath} element={
             <section className="pt-20">
               <div className="flex items-center justify-center pb-2">
-                <QrCode link={qrText} ticket={homepath}/>
+                <QrCode link={qrText} ticket={homepath} />
                 {/* <TicketOnwer /> */}
               </div>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
@@ -129,6 +129,13 @@ function App() {
           <h4>Screenshot and show me at the door</h4>
         </div>
         <TicketOnwer />
+
+        <Link
+          to={"https://ticket-drop.vercel.app"}
+          className="mt-4 border bg-gradient-to-tr from-red-500 to-pink-800 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+        >
+          Buy More...
+        </Link>
         <Routes>
           <Route path={homepath} element={"/"}></Route>
         </Routes>
@@ -141,7 +148,7 @@ function App() {
     return (
       <div className="bg-white text-white relative">
         <Hero />
-        <div className="fixed font-bold text-white bg-orange-600 hover:scale-105 transition-all duration-200 hover:bg-orange-900 animate-bounce rounded-xl shadow shadow-xl px-8 py-4 right-5 bottom-5">Dont be late, quantities are limited</div>
+        <div className="fixed font-bold text-white bg-orange-600 hover:scale-105 transition-all duration-200 hover:bg-orange-900 animate-bounce rounded-xl shadow shadow-xl px-8 py-4 right-5 bottom-5 z-50">Dont be late, quantities are limited</div>
         {/* <Premium /> */}
         <Tickets />
         <Routes>
