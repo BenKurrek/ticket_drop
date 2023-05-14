@@ -8,6 +8,7 @@ const Routers = () => {
   return (
     <Routes>
       <Route path="/" element={<App />}></Route>
+      <Route path="/v2.keypom.testnet/*" element={<App />}></Route>
       <Route path="premium" element={<TicketPremium />}></Route>
       <Route path="elite" element={<TicketElite />}></Route>
       <Route path="standard" element={<TicketStandard />}></Route>

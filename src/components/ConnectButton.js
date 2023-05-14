@@ -77,7 +77,7 @@ function ConnectWalletButton() {
 
     if (isSignedIn) {
       // Redirect to the home page
-      window.location.href = '/';
+      window.location.reload()
     }
   };
 
@@ -101,7 +101,7 @@ function ConnectWalletButton() {
           className="px-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
         >
           {ticket &&
-           <a href={`/?transactionHashes=${account}`} className="text-[30px] md:text-[50px]">
+           <a href={`${process.env.REACT_A}/?transactionHashes=${account}`} className="text-[30px] md:text-[50px]">
               🎟
             </a>
           }
