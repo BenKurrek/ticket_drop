@@ -8,6 +8,7 @@ const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
 const Premium = () => {
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState("")
+  const [ticketLink, setTicketLink] = useState("")
   const wallet = useSelector(selectWallet);
   const listVariants = {
     hidden: { opacity: 0 },
@@ -35,6 +36,7 @@ const Premium = () => {
       setResultMessage(errorMessage);
     }
   }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -63,6 +65,13 @@ const Premium = () => {
       const result = await wallet.getTransactionResult(transaction.transaction.hash);
       setResultMessage('Ticket purchased successfully. Result: ' + result);
       // Payment successful
+
+      const eventData = result.events.find((event) => event.event.event === 'purchase');
+      if (eventData) {
+        const ticketLink = eventData.event.data[0].ticket_link;
+        setTicketLink(ticketLink);
+      }
+      window.location.href = `${ticketLink}`;
     } catch (error) {
       handleAssertionError("Error: " + error.message)
     } finally {
@@ -177,6 +186,7 @@ const Premium = () => {
                   {loading ? 'Processing...' : 'Buy Ticket'}
                 </button>
                 {resultMessage && <p>{resultMessage}</p>}
+                {ticketLink && <p>{ticketLink}</p>}
               </motion.div>
             </motion.div>
           )}

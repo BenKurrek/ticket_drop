@@ -8,7 +8,7 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
   // These functions will run anytime the component is re-rendered 
   useEffect(() => {
     async function getUsesRemaining(privKey) {
-      let tempKey = getPubFromSecret(privKey);
+      let tempKey = await getPubFromSecret(privKey);
       setPubKey(tempKey)
       const resKeyInfo = await getKeyInformation({ publicKey: tempKey })
       if (resKeyInfo) {
@@ -23,7 +23,7 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
 
   useEffect(() => {
     async function getKeyinfo() {
-      var publicKey = getPubFromSecret(privKey);
+      var publicKey = await getPubFromSecret(privKey);
       var keyInfo = await getKeyInformation({ publicKey })
       let data = getDropInformation({
         dropId: keyInfo.drop_id,

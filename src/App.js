@@ -126,8 +126,11 @@ function App() {
   }
   else if (curUse === 0 && transactionHash) {
     return (
-      <div className="bg-white text-gray-800">
-        <Hero>Your Ticket Here</Hero>
+      <div className="bg-white text-gray-800 flex flex-col items-center justify-center text-center pt-20">
+        <div className="text-center font-bold py-2 ">
+          <h1>🎟️This is your ticket🔑</h1>
+          <h4>Screenshot and show me at the door</h4>
+        </div>
         <TicketOnwer/>
         <Routes>
           <Route path={homepath} element={"/"}></Route>

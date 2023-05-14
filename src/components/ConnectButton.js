@@ -12,7 +12,6 @@ function ConnectWalletButton() {
   const [ticket, setTicket] = useState(false);
 
   const isLoading = useSelector(selectIsLoading);
-  console.log(contract_id)
 
   useEffect(() => {
     if (!isLoading && wallet) {

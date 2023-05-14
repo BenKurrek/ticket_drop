@@ -4,7 +4,6 @@ import { connect, keyStores } from 'near-api-js';
 const ContractEventLogs = ({ contractId }) => {
   const [eventLogs, setEventLogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log("Contrct Log")
 
   useEffect(() => {
     const getContractEventLogs = async () => {

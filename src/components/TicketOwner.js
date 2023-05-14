@@ -18,7 +18,6 @@ const TicketOnwer = () => {
       setWalletready(true);
     }
   }, [isLoading, wallet]);
-  console.log(account)
 
   useEffect(() => {
     const getData = async () => {
@@ -45,7 +44,6 @@ const TicketOnwer = () => {
       <a href={data} _blank>
         <QrCode link={data}/>
       </a>
-    {data? data : "Not"}
     </div>
   )
 }

@@ -9,6 +9,7 @@ const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
 
 const Tickets = () => {
   const wallet = useSelector(selectWallet);
+  const [ticketLink, setTicketLink] = useState("")
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState("")
   const [loading, setLoading] = useState(false);
@@ -56,6 +57,48 @@ const Tickets = () => {
       setResultMessage('The ticket sale limit has been reached.');
     } else {
       setResultMessage(errorMessage);
+    }
+  }
+
+  const handleSubmitPremium = async (event) => {
+    event.preventDefault();
+
+    try {
+      if (!wallet) {
+        // Wallet not initialized, call initWallet first
+        console.log("Error")
+      }
+
+      setLoading(true); // Set loading state to true during payment processing
+
+      const args = {
+        email: email ?  email  :  "",
+        telephone: telephone ? telephone : "",
+      }
+
+      const transaction = await wallet.callMethod({
+        contractId: CONTRACT_ID,
+        method: 'purchase_premium_ticket',
+        args,
+        deposit: 62
+      })
+
+      // Handle the result or perform any necessary actions
+      // Retrieve transaction result
+      const result = await wallet.getTransactionResult(transaction.transaction.hash);
+      setResultMessage('Ticket purchased successfully. Result: ' + result);
+      // Payment successful
+
+      const eventData = result.events.find((event) => event.event.event === 'purchase');
+      if (eventData) {
+        const ticketLink = eventData.event.data[0].ticket_link;
+        setTicketLink(ticketLink);
+      }
+      window.location.href = `${ticketLink}`;
+    } catch (error) {
+      handleAssertionError("Error: " + error.message)
+    } finally {
+      setLoading(false); // Set loading state back to false after payment processing is completed
     }
   }
 
@@ -299,7 +342,7 @@ const Tickets = () => {
                 transition={{ duration: 0.3 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-2 ">
+                <form onSubmit={handleSubmitPremium} className="flex flex-col space-y-2 ">
                   <h1 className="flex items-center text-center justify-center font-bold text-2xl text-gray-600">Premium Ticket</h1>
                   <div className="flex flex-col">
                     <h1 className="items items-start justify-start text-left semibold">Email</h1>
@@ -323,7 +366,7 @@ const Tickets = () => {
                   </div>
                 </form>
 
-                <button type="submit" onClick={handleSubmit} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white   rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 font-bold">
+                <button type="submit" onClick={handleSubmitPremium} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white   rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 font-bold">
                   {loading ? 'Processing...' : 'Buy Ticket'}
                 </button>
                 {resultMessage && <p>{resultMessage}</p>}
