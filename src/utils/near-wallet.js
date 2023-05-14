@@ -25,7 +25,7 @@ export class Wallet {
   createAccessKeyFor;
   accountId;
 
-  constructor(props = { createAccessKeyFor: "", network: "testnet" }) {
+  constructor(props = { createAccessKeyFor: "", network: "mainnet" }) {
     const { createAccessKeyFor, network } = props;
     this.createAccessKeyFor = createAccessKeyFor;
     this.network = network;

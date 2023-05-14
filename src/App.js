@@ -13,7 +13,7 @@ import TicketOnwer from "./components/TicketOwner";
 import QrCode from "./components/qrcode";
 const { keyStores, connect } = nearAPI;
 
-const NETWORK_ID = "testnet"
+const NETWORK_ID = "mainnet"
 const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
 
 export async function connectNear(privateKey, contractId) {
