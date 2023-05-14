@@ -47,11 +47,21 @@ const QrCode = ({ link, ticket }) => {
   return (
     <div className="qrcode__container">
       <div>{qrcode}</div>
-      {type &&
-        <h1 className="text-gray-900 font-bold w-2/4 mx-auto items-center border-gray-400 px-4 py-2 text-center border justify-center mt-4">
+      {type == "ELITE" &&
+        <button
+          className="mt-4 border bg-gradient-to-tr from-cyan-400 to-blue-700 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+        >
           {type} Ticket
-        </h1>
+        </button>
       }
+      {type == "PREMIUM" &&
+        <button
+          className="mt-4 border bg-gradient-to-tr from-red-500 to-pink-800 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+        >
+          {type} Ticket
+        </button>
+      }
+
     </div>
   );
 };

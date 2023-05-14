@@ -30,17 +30,28 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
         publicKey: publicKey,
         withKeys: true,
       });
-      data.then((data) => {setData(data.fc.methods[1][0].args)})
+      data.then((data) => { setData(data.fc.methods[1][0].args) })
     }
     getKeyinfo()
-  },[privKey])
+  }, [privKey])
 
   if (curUse === 1) {
     return (
       <div className="flex flex-col items-center">
-        <button className="px-8 py-2 bg-gradient-to-r from-cyan-300 to-cyan-300 text-gray-700 rounded-2xl">
-          <h1 className="text-xl font-bold">{data} TICKET</h1>
-        </button>
+        {data == "ELITE" &&
+          <button
+            className="mt-4 border bg-gradient-to-tr from-cyan-400 to-blue-700 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+          >
+            {data} Ticket
+          </button>
+        }
+        {data == "PREMIUM" &&
+          <button
+            className="mt-4 border bg-gradient-to-tr from-red-500 to-pink-800 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+          >
+            {data} Ticket
+          </button>
+        }
       </div>
     )
   }

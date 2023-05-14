@@ -108,7 +108,7 @@ function ConnectWalletButton() {
         </button>
         <button
           onClick={signOutClick}
-          className="border border-gray-600 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+          className="border border-gray-600 px-3 py-1 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-700 text-white hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
         >
           Logout
         </button>
@@ -122,7 +122,7 @@ function ConnectWalletButton() {
       <>
         <button
           onClick={signOutClick}
-          className="border border-gray-600 px-4 py-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+          className="border border-gray-600 px-4 py-2 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-700 text-white hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
         >
           {wallet.accountId?.split(".")[0]}
         </button>
@@ -134,7 +134,7 @@ function ConnectWalletButton() {
     return (
       <button
         onClick={onConnectWalletClicked}
-        className="border border-gray-600 px-4 py-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
+        className="border bg-gradient-to-tr from-cyan-400 to-blue-700 text-white border-gray-600 px-4 py-2 rounded-xl hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
       >
         Connect
       </button>
