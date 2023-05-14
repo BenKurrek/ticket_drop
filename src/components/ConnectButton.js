@@ -4,10 +4,13 @@ import { selectAccountId, selectIsLoading, selectWallet } from "../features/wall
 
 const contract_id = process.env.REACT_APP_CONTRACT_ID
 
+
+
 function ConnectWalletButton() {
   const wallet = useSelector(selectWallet);
   const account = useSelector(selectAccountId)
-  const [data, setData] = useState();
+  // eslint-disable-next-line
+  const [data, setData] = useState([]);
   const [walletReady, setWalletready] = useState(false);
   const [ticket, setTicket] = useState(false);
 
@@ -27,18 +30,30 @@ function ConnectWalletButton() {
       }
       const result = await wallet.viewMethod({
         contractId: contract_id,
-        method: "get_ticket_link_by_buyer",
+        method: "get_ticket_links_by_buyer",
         args: {
           account_id: `${account}`
         }
       })
-      setData(result);
-      setTicket(true);
-    } ;
+      if (result) {
+        if (Array.isArray(result)) {
+          setData(result);
+        } else {
+          const resultArray = Object.entries(result).map(([key, value]) => ({
+            key,
+            value,
+          }));
+          setData(resultArray);
+        }
+        setTicket(true);
+      } else {
+        setTicket(false)
+      }
+    };
     if (walletReady) {
       getData();
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [walletReady]);
 
   const onConnectWalletClicked = async () => {
@@ -79,16 +94,14 @@ function ConnectWalletButton() {
 
   const isWalletConnected = !!wallet?.accountId;
 
-
-
   if (isWalletConnected && ticket) {
     return (
       <div className="flex items-center">
         <button
           className="px-2 rounded-md text-gray-600 hover:bg-gray-300 hover:border-b-4 hover:border-r-4 transition-all duration-300 font-medium"
         >
-          {data &&
-            <a href={data} className="text-2xl">
+          {ticket &&
+            <a href={`/?transactionHashes=${account}`} className="text-2xl">
               🎟
             </a>
           }
@@ -99,11 +112,10 @@ function ConnectWalletButton() {
         >
           Logout
         </button>
-
       </div>
     )
   }
-  
+
 
   if (isWalletConnected) {
     return (

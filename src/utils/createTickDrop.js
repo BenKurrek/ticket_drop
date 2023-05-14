@@ -1,7 +1,8 @@
-const { connect, Account } = require("near-api-js");
+const path = require("path");
+const homedir = require("os").homedir();
+const { keyStores, connect, Account } = require("near-api-js");
 
 const keypom = require("@keypom/core");
-import { connectNear } from '../App'
 const {
   initKeypom,
   getEnv,
@@ -13,11 +14,23 @@ const {
 // Change this to your account ID
 const FUNDER_ACCOUNT_ID = "eamon.testnet";
 const NETWORK_ID = "testnet";
-const contractId = process.env.REACT_APP_CONTRACT_ID
 async function createTickDrop() {
   // Initiate connection to the NEAR blockchain.
+  const CREDENTIALS_DIR = ".near-credentials";
+  const credentialsPath = path.join(homedir, CREDENTIALS_DIR);
 
-  let near = await connect(connectNear(contractId));
+  let keyStore = new keyStores.UnencryptedFileSystemKeyStore(credentialsPath);
+
+  let nearConfig = {
+    networkId: NETWORK_ID,
+    keyStore: keyStore,
+    nodeUrl: `https://rpc.${NETWORK_ID}.near.org`,
+    walletUrl: `https://wallet.${NETWORK_ID}.near.org`,
+    helperUrl: `https://helper.${NETWORK_ID}.near.org`,
+    explorerUrl: `https://explorer.${NETWORK_ID}.near.org`,
+  };
+
+  let near = await connect(nearConfig);
   const fundingAccount = new Account(near.connection, FUNDER_ACCOUNT_ID)
 
   // If a NEAR connection is not passed in and is not already running, initKeypom will create a new connection
@@ -42,12 +55,12 @@ async function createTickDrop() {
         null,
         [
           {
-            receiverId: `v2.keypom.${NETWORK_ID}`,
+            receiverId: `nft-v2.keypom.${NETWORK_ID}`,
             methodName: "nft_mint",
             args: "ELITE",
             dropIdField: "mint_id",
             accountIdField: "receiver_id",
-            attachedDeposit: 0,
+            attachedDeposit: BigInt("0"),
           }
         ],
       ]
@@ -67,12 +80,11 @@ async function createTickDrop() {
 
   const { contractId: KEYPOM_CONTRACT } = getEnv()
   let tickets = formatLinkdropUrl({
-    customURL: "http://localhost:1234/CONTRACT_ID/SECRET_KEY",
+    customURL: "http://localhost:3000/CONTRACT_ID/SECRET_KEY",
     secretKeys: keys.secretKeys,
     contractId: KEYPOM_CONTRACT,
   })
   console.log(`
-    
     Ticket Links: 
     
     ${tickets}

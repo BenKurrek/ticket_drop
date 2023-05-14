@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Route, Routes } from 'react-router-dom';
 import * as nearAPI from "near-api-js";
-import { initKeypom, formatLinkdropUrl, createDrop } from '@keypom/core'
-import QrCode from "./components/qrcode";
+import { initKeypom, formatLinkdropUrl} from '@keypom/core'
 import KeyInfo from "./state/keyInfo";
 import { Scanner } from "./components/scanner";
 import Tickets from "./components/Ticket";
@@ -12,6 +11,7 @@ import Premium from "./components/PremiumTicket";
 import { useDispatch } from "react-redux";
 import { initWallet } from "./features/walletSlice";
 import TicketOnwer from "./components/TicketOwner";
+import QrCode from "./components/qrcode";
 const { keyStores, connect } = nearAPI;
 
 const NETWORK_ID = "testnet";
@@ -34,29 +34,28 @@ export async function connectNear(privateKey, contractId) {
     network: NETWORK_ID,
     keypomContractId: contractId
   });
-
 }
 
 let contractId;
 let privKey;
 let qrText;
+
 function setup() {
   // Setting contract id, priv key and link state variables.
-  const urlSplit = window.location.href.split("/");
+  const urlSplit = window?.location.href.split("/");
 
   if (urlSplit.length > 3) {
     contractId = urlSplit[3]
     privKey = urlSplit[4]
-    qrText = `${contractId}/${privKey}`
+    qrText =  `${contractId}/${privKey}`
   }
+
   if (contractId) {
     connectNear(contractId)
   }
 }
 
-
 setup()
-
 function App() {
   const dispatch = useDispatch();
   const urlParams = new URLSearchParams(window.location.search);
@@ -77,7 +76,6 @@ function App() {
   const homepath = `/${contractId}/${privKey}`
   const scannerpath = `/${contractId}/scanner`
 
-
   // rendering stuff
 
   if (curUse === 1) {
@@ -90,12 +88,9 @@ function App() {
           <Route path={scannerpath} element={<Scanner />} />
           <Route path={homepath} element={
             <section className="pt-20">
-              <div className="text-center font-bold py-2 ">
-                <h1>🎟️This is your ticket🔑</h1>
-                <h4>Screenshot and show me at the door</h4>
-              </div>
               <div className="flex items-center justify-center pb-2">
                 <QrCode link={qrText}  />
+                {/* <TicketOnwer /> */}
               </div>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
             </section>} />
@@ -116,11 +111,11 @@ function App() {
         <Routes>
           <Route path={scannerpath} element={<Scanner />} />
           <Route path={homepath} element={
-            <>
+            <div className="flex flex-col items-center text-center justify-center font-bold">
               <h1>You're all set! Enjoy the event</h1>
-              <a href={link} target="_blank" rel="noopener noreferrer"><button className="onboard_button">Claim your POAP</button></a>
+              <a href={link} target="_blank" rel="noopener noreferrer"><button className="px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-600 text-xl">Claim your POAP</button></a>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
-            </>} />
+            </div>} />
         </Routes>
       </div>
     );
@@ -145,7 +140,7 @@ function App() {
     return (
       <div className="bg-white text-white">
         <Hero />
-        <Premium />
+        {/* <Premium /> */}
         <Tickets />
         <Routes>
           <Route path={homepath} element={"/"}></Route>

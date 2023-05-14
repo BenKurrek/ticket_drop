@@ -12,13 +12,13 @@ const TicketOnwer = () => {
   const [walletReady, setWalletready] = useState(false);
 
   const isLoading = useSelector(selectIsLoading);
-  console.log(contract_id)
 
   useEffect(() => {
     if (!isLoading && wallet) {
       setWalletready(true);
     }
   }, [isLoading, wallet]);
+
 
   useEffect(() => {
     const getData = async () => {
@@ -32,16 +32,18 @@ const TicketOnwer = () => {
         args: {
           account_id: account
         }
-      })
-      if (Array.isArray(result)) {
-        setData(result);
-      } else {
-        const resultArray = Object.entries(result).map(([key, value]) => ({
-          key,
-          value,
-        }));
-        setData(resultArray);
-      }
+      });
+      if (result) {
+        if (Array.isArray(result)) {
+          setData(result);
+        } else {
+          const resultArray = Object.entries(result).map(([key, value]) => ({
+            key,
+            value,
+          }));
+          setData(resultArray);
+        }
+      } 
     };
 
     if (walletReady) {
@@ -49,8 +51,11 @@ const TicketOnwer = () => {
     }
   }, [walletReady]);
 
+  console.log("data: ", data)
+  console.log("contract_id: ", contract_id  )
+
   return (
-    <div className="text-gray-800">
+    <div className="text-gray-800 flex space-x-16 space-y-16">
       {data.map((ticket) => (
         <a href={ticket} key={ticket}>
           <QrCode link={ticket} />

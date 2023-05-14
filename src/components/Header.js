@@ -30,30 +30,30 @@ const Header = () => {
           variants={itemVariants}
           className="flex space-x-8 items-center justify-start"
         >
-          <a href="/" className="flex items-center space-x-2 z-10">
+          <a href="https://nearapac.org/" className="flex items-center space-x-2 z-10">
             <img src={logo} alt="logo" className="" width={250} height={90}/>
           </a>
         </motion.div>
         <ul className="col-span-3 hidden lg:flex text-gray-800 font-bold space-x-4 justify-between items-center">
-          <a href="/" className="hover:text-cyan-500">
+          <a href="https://nearapac.org/" className="hover:text-cyan-500">
             Why attend
           </a>
-          <a href="/" className="hover:text-cyan-500">
+          <a href="https://nearapac.org/" className="hover:text-cyan-500">
             Agenda
           </a>
-          <a href="/" className="hover:text-cyan-500">
+          <a href="https://nearapac.org/" className="hover:text-cyan-500">
             Speakers
           </a>
-          <a href="/" className="hover:text-cyan-500">
+          <a href="https://nearapac.org/" className="hover:text-cyan-500">
             Partners
           </a>
-          <a href="/" className="hover:text-cyan-500">
+          <a href="https://nearapac.org/" className="hover:text-cyan-500">
             Hackfest
           </a>
-          <a href="/" className="hover:text-cyan-500">
+          <a href="https://nearapac.org/" className="hover:text-cyan-500">
             Get involed
           </a>
-          <a href="/" className="hover:text-cyan-500">
+          <a href="https://nearapac.org/" className="hover:text-cyan-500">
             About
           </a>
         </ul>

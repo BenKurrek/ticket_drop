@@ -13,7 +13,7 @@ const Footer = () => {
           <h3 className="py-2 text-xl">Tickets Available Soon</h3>
 
           <a
-            href="/"
+            href="https://nearapac.org/"
             className="flex space-x-2 z-10 flex items-center justify-center py-4"
           >
             <img src={logo} width={180} height={100} alt="logo" />

@@ -18,8 +18,10 @@ root.render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
-        <HeaderTop />
-        <Header />
+        <div className="relative z-20 shadow-b shadow-2xl shadow-blue-300">
+          <HeaderTop />
+          <Header />
+        </div>
         <div className="min-h-screen">
           <App />
         </div>

@@ -55,6 +55,8 @@ const Tickets = () => {
       setResultMessage('The ticket is not available.');
     } else if (errorMessage.includes("Ticket sale limit reached.")) {
       setResultMessage('The ticket sale limit has been reached.');
+    } else if (errorMessage.includes("Error: The first argument must be one of type string, Buffer")) {
+      setResultMessage("Success! Please Reload The Browser!");
     } else {
       setResultMessage(errorMessage);
     }
@@ -161,16 +163,12 @@ const Tickets = () => {
           </h2>
         </div>
         <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
-          <span className="px-8 md:px-4 py-2"> - 2 Full days of event</span>
+          <span className="px-8 md:px-4 py-2"> - 2 Full days of conference with industry experts and joining booths and stages activities</span>
           <span className="px-8 md:px-4 py-2">
-            - Full acess to all event activities (exclude the passport game)
+            - Join travel game to share prize pool 100 million VND
           </span>
           <span className="px-8 md:px-4 py-2">
-            - Join travel game to share prize pool 100 mollion VND
-          </span>
-          <span className="px-8 md:px-4 py-2">
-            Bonus: IF: <br />Complete Quest <br />
-            Upgrade to Elite ticket
+            - Chance to upgrade to Elite ticket after completing quests
           </span>
         </div>
         <button className="mx-auto w-3/4 text-md mt-4 font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-2xl hover:scale-105 transition-all duration-200">
@@ -199,24 +197,20 @@ const Tickets = () => {
           </h2>
         </div>
         <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
-          <span className="px-8 md:px-4 py-2"> - 2 Full days of event</span>
+          <span className="px-8 md:px-4 py-2"> - 2 Full days of conference with industry experts and joining booths and stages activities</span>
           <span className="px-8 md:px-4 py-2">
             - Receive Standard Event Gift set from NEAR APAC 2023.
           </span>
           <span className="px-8 md:px-4 py-2">
-            - Full acess to all event activities
+            - Free food and beverage during the conference
           </span>
           <span className="px-8 md:px-4 py-2">
-            - Free tea-break full (Finger food and Beverage)
+            - Access in some exclusive sessions during the conference.
           </span>
           <span className="px-8 md:px-4 py-2">
-            - Join lucky draw game to share the the prize pool 300 million VND
-          </span>
-          <span className="text-center px-8 md:px-4 pt-8">
-            Just 2000 Ticket Left
+            - Join all games during the conference to share the the prize pool of 300 million VND
           </span>
         </div>
-
         <button onClick={toggleElitePopup} className="mt-4 mx-auto w-3/4 text-md font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-2xl hover:scale-105 transition-all duration-200">
           Get Ticket
         </button>
@@ -267,7 +261,9 @@ const Tickets = () => {
               <button type="submit" onClick={handleSubmit} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white font-md rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50">
                 {loading ? 'Processing...' : 'Buy Ticket'}
               </button>
-              {resultMessage && <p>{resultMessage}</p>}
+              <div className="flex items-center text-center justify-center font-semibold mt-6">
+                {resultMessage && <p>{resultMessage}</p>}
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -293,29 +289,25 @@ const Tickets = () => {
           </h2>
         </div>
         <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[12px] md:text-[15px]">
-          <span className="px-8 md:px-4 py-2">- 2 Full days of event</span>
+          <span className="px-8 md:px-4 py-2">- 2 Full days of conference with industry experts and joining booths and stages activities</span>
           <span className="px-8 md:px-4 py-2">
-            - Full access to all event activities
+            - Free food and beverage during the conference.
           </span>
           <span className="px-8 md:px-4 py-2">
-            - Full access zone (VVIP Networking - VVIP Relax lounge - Matching
-            zone)
+            - Complimentary 2 days VIP buffet lunch with VIP Speakers and Guests.
           </span>
           <span className="px-8 md:px-4 py-2">
-            - Join VVIP Opening party (1 day before main event)
+            - Access in all exclusive sessions and VIP lounge during the conference.
           </span>
-          <span className="px-8 md:px-4 py-2">- Join VVIP After party</span>
+          <span className="px-8 md:px-4 py-2">- Join all games during the conference to share the the prize pool of 300 million VND</span>
           <span className="px-8 md:px-4 py-2">
-            - Free 2 day VIP Lunch at event (With Tickets)
-          </span>
-          <span className="px-8 md:px-4 py-2">
-            - Free F&B (Snacks - Soft drink/Water)
+            - Exclusive invite ticket to Opening VIP party with VIP Speakers and Guests.
           </span>
           <span className="px-8 md:px-4 py-2">
-            - Receive Premium Event Gift set from NEAR APAC 2023
+            - Exclusive invite ticket to Closing VIP party with VIP Speakers and Guests.
           </span>
           <span className="px-8 md:px-4 py-2">
-            – Join all of games to share the the prize pool 300 million VND
+            - Receive Premium Event Gift set from NEAR APAC 2023.
           </span>
         </div>
 
@@ -369,7 +361,9 @@ const Tickets = () => {
                 <button type="submit" onClick={handleSubmitPremium} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white   rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 font-bold">
                   {loading ? 'Processing...' : 'Buy Ticket'}
                 </button>
-                {resultMessage && <p>{resultMessage}</p>}
+                <div className="flex items-center text-center justify-center font-semibold mt-6">
+                  {resultMessage && <p>{resultMessage}</p>}
+                </div>
               </motion.div>
             </motion.div>
           )}
