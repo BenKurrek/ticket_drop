@@ -22,9 +22,7 @@ root.render(
           <HeaderTop />
           <Header />
         </div>
-        <div className="min-h-screen">
-          <App />
-        </div>
+        <App />
         <Footer />
         <ToastContainer
           position="bottom-center"

@@ -288,7 +288,7 @@ const Tickets = () => {
             <span className="text-[20px] md:text-[30px]">,00</span>
           </h2>
         </div>
-        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[12px] md:text-[15px]">
+        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
           <span className="px-8 md:px-4 py-2">- 2 Full days of conference with industry experts and joining booths and stages activities</span>
           <span className="px-8 md:px-4 py-2">
             - Free food and beverage during the conference.
