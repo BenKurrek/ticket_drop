@@ -19,7 +19,6 @@ const TicketOnwer = () => {
     }
   }, [isLoading, wallet]);
 
-
   useEffect(() => {
     const getData = async () => {
       if (!wallet) {
@@ -51,11 +50,8 @@ const TicketOnwer = () => {
     }
   }, [walletReady]);
 
-  console.log("data: ", data)
-  console.log("contract_id: ", contract_id  )
-
   return (
-    <div className="text-gray-800 flex space-x-16 space-y-16">
+    <div className="text-gray-800 flex items-center justify-center text-center align-center space-x-8 py-10">
       {data.map((ticket) => (
         <a href={ticket} key={ticket}>
           <QrCode link={ticket} />
