@@ -12,7 +12,7 @@ const {
 } = keypom
 
 // Change this to your account ID
-const FUNDER_ACCOUNT_ID = "eamon.testnet";
+const FUNDER_ACCOUNT_ID = "eamondang.testnet";
 const NETWORK_ID = "testnet";
 async function createTickDrop() {
   // Initiate connection to the NEAR blockchain.
