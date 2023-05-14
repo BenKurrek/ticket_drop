@@ -82,7 +82,7 @@ const Tickets = () => {
         contractId: CONTRACT_ID,
         method: 'purchase_premium_ticket',
         args,
-        deposit: 62
+        deposit: 605
       })
 
       // Handle the result or perform any necessary actions
