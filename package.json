@@ -7,6 +7,7 @@
     "@near-js/keystores-browser": "^0.0.4",
     "@near-js/wallet-account": "^0.0.6",
     "@near-wallet-selector/core": "^7.8.0",
+    "@near-wallet-selector/here-wallet": "^8.1.0",
     "@near-wallet-selector/ledger": "^7.8.0",
     "@near-wallet-selector/math-wallet": "^7.8.0",
     "@near-wallet-selector/meteor-wallet": "^7.8.0",
