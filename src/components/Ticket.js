@@ -142,7 +142,7 @@ const Tickets = () => {
       variants={listVariants}
       initial="hidden"
       animate="visible"
-      className="pt-8 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  max-w-[1440px] md:w-3/4 mx-auto"
+      className="pt-8 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  max-w-[1440px] md:w-[90%] mx-auto"
     >
       {/* Standard */}
       <motion.div

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Route, Routes } from 'react-router-dom';
 import * as nearAPI from "near-api-js";
-import { initKeypom, formatLinkdropUrl } from '@keypom/core'
+import { initKeypom, formatLinkdropUrl, createDrop } from '@keypom/core'
 import QrCode from "./components/qrcode";
 import KeyInfo from "./state/keyInfo";
 import { Scanner } from "./components/scanner";
@@ -16,7 +16,7 @@ const { keyStores, connect } = nearAPI;
 
 const NETWORK_ID = "testnet";
 
-async function connectNear(privateKey, contractId) {
+export async function connectNear(privateKey, contractId) {
   const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
   const connectionConfig = {
     networkId: NETWORK_ID,
@@ -34,6 +34,7 @@ async function connectNear(privateKey, contractId) {
     network: NETWORK_ID,
     keypomContractId: contractId
   });
+
 }
 
 let contractId;
@@ -131,7 +132,7 @@ function App() {
           <h1>🎟️This is your ticket🔑</h1>
           <h4>Screenshot and show me at the door</h4>
         </div>
-        <TicketOnwer/>
+        <TicketOnwer />
         <Routes>
           <Route path={homepath} element={"/"}></Route>
         </Routes>

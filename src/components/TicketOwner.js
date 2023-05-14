@@ -8,10 +8,11 @@ const contract_id = process.env.REACT_APP_CONTRACT_ID
 const TicketOnwer = () => {
   const wallet = useSelector(selectWallet);
   const account = useSelector(selectAccountId)
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [walletReady, setWalletready] = useState(false);
 
   const isLoading = useSelector(selectIsLoading);
+  console.log(contract_id)
 
   useEffect(() => {
     if (!isLoading && wallet) {
@@ -27,13 +28,22 @@ const TicketOnwer = () => {
       }
       const result = await wallet.viewMethod({
         contractId: contract_id,
-        method: "get_ticket_link_by_buyer",
+        method: "get_ticket_links_by_buyer",
         args: {
           account_id: account
         }
       })
-      setData(result);
+      if (Array.isArray(result)) {
+        setData(result);
+      } else {
+        const resultArray = Object.entries(result).map(([key, value]) => ({
+          key,
+          value,
+        }));
+        setData(resultArray);
+      }
     };
+
     if (walletReady) {
       getData();
     }
@@ -41,9 +51,11 @@ const TicketOnwer = () => {
 
   return (
     <div className="text-gray-800">
-      <a href={data} _blank>
-        <QrCode link={data}/>
-      </a>
+      {data.map((ticket) => (
+        <a href={ticket} key={ticket}>
+          <QrCode link={ticket} />
+        </a>
+      ))}
     </div>
   )
 }

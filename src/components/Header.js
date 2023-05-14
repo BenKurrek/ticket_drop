@@ -23,7 +23,7 @@ const Header = () => {
         variants={listVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 max-w-[1440px] mx-auto lg:w-3/4 px-2 py-2 z-10"
+        className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 max-w-[1440px] mx-auto lg:w-[90%] px-2 py-2 z-10"
       >
         {/* Left */}
         <motion.div

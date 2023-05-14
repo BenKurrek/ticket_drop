@@ -21,6 +21,7 @@ export const Scanner = () => {
   }
 
   // State Variables
+  // eslint-disable-next-line
   const [result, setResult] = useState("");
   const [splitRes, setSplitRes] = useState([]);
   const [resPrivKey, setResPrivkey] = useState("")
@@ -81,8 +82,7 @@ export const Scanner = () => {
             data: Data.empty
           }
           setMasterStatus(tempMaster2)
-        }
-        else{
+        } else {
           // Failed Claim
           let tempMaster1 = {
             stage: Stage.failClaim, 
@@ -92,6 +92,7 @@ export const Scanner = () => {
 
           // Wait 3s, then flip go back to pre-claim
           await timeout(3000)
+          // eslint-disable-next-line
           var emptyRes = new Array(splitRes.length)
           setSplitRes(emptyRes)
           setResPrivkey("")

@@ -52,22 +52,22 @@ const Footer = () => {
         </div>
         <div className="hidden lg:flex flex-col items-center text-left">
           <h1 className="font-bold text-xl">Navigation</h1>
-          <a href="#" className="hover:text-cyan-500 cursor-pointer">
+          <a href="/#about" className="hover:text-cyan-500 cursor-pointer">
             About
           </a>
-          <a href="#" className="hover:text-cyan-500 cursor-pointer">
+          <a href="/#contract" className="hover:text-cyan-500 cursor-pointer">
             Contract
           </a>
-          <a href="#" className="hover:text-cyan-500 cursor-pointer">
+          <a href="/#FAQ" className="hover:text-cyan-500 cursor-pointer">
             FAQ
           </a>
-          <a href="#" className="hover:text-cyan-500 cursor-pointer">
+          <a href="/#Privacy" className="hover:text-cyan-500 cursor-pointer">
             Privacy Policy
           </a>
-          <a href="#" className="hover:text-cyan-500 cursor-pointer">
+          <a href="/Terms" className="hover:text-cyan-500 cursor-pointer">
             Terms of Use
           </a>
-          <a href="#" className="hover:text-cyan-500 cursor-pointer">
+          <a href="/#Cookie" className="hover:text-cyan-500 cursor-pointer">
             Cookie
           </a>
         </div>

@@ -19,7 +19,7 @@ const HeaderTop = () => {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.2, duration: 0.6 }}
     >
-      <div className="max-w-[1440px] mx-auto w-full lg:w-3/4 px-3 text-md py-1 font-light leading-6 tracking-wider">
+      <div className="max-w-[1440px] mx-auto w-full lg:w-[90%] px-3 text-md py-1 font-light leading-6 tracking-wider">
         <motion.ul
           className="flex justify-end space-x-2 items-center text-center"
           variants={listVariants}
