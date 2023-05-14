@@ -102,7 +102,6 @@ const TicketPremium = () => {
     }
   }
 
-  }
   return (
     <motion.section
       variants={listVariants}
@@ -222,7 +221,7 @@ const TicketPremium = () => {
       </motion.div>
     </motion.section>
   );
-};
+}
 
 
 export default TicketPremium
