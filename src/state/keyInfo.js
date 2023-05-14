@@ -8,7 +8,7 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
   // These functions will run anytime the component is re-rendered 
   useEffect(() => {
     async function getUsesRemaining(privKey) {
-      let tempKey = await getPubFromSecret(privKey)
+      let tempKey = getPubFromSecret(privKey);
       setPubKey(tempKey)
       const resKeyInfo = await getKeyInformation({ publicKey: tempKey })
       if (resKeyInfo) {
@@ -23,7 +23,7 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
 
   useEffect(() => {
     async function getKeyinfo() {
-      var publicKey = await getPubFromSecret(privKey)
+      var publicKey = getPubFromSecret(privKey);
       var keyInfo = await getKeyInformation({ publicKey })
       let data = getDropInformation({
         dropId: keyInfo.drop_id,
@@ -37,11 +37,10 @@ const KeyInfo = ({ contractId, privKey, curUse, setCurUse, pubKey, setPubKey }) 
 
   if (curUse === 1) {
     return (
-      <div>
-        <div>Public Key: {pubKey}</div>
-        <div>Current Key Use: {curUse}</div>
-        <div>{data}</div>
-        <h1></h1>
+      <div className="flex flex-col items-center">
+        <button className="px-8 py-2 bg-gradient-to-r from-cyan-300 to-cyan-300 text-gray-700 rounded-2xl">
+          <h1 className="text-xl font-bold">{data} TICKET</h1>
+        </button>
       </div>
     )
   }

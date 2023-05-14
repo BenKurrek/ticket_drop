@@ -8,7 +8,6 @@ const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
 const Premium = () => {
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState("")
-  const [name, setName] = useState("")
   const wallet = useSelector(selectWallet);
   const listVariants = {
     hidden: { opacity: 0 },
@@ -48,8 +47,8 @@ const Premium = () => {
       setLoading(true); // Set loading state to true during payment processing
 
       const args = {
-        email: email ? {Some : email} : {None: null},
-        telephone: telephone ? {Some: telephone} : {None: null}
+        email: email ?  email  :  "",
+        telephone: telephone ? telephone : "",
       }
 
       const transaction = await wallet.callMethod({
@@ -142,7 +141,7 @@ const Premium = () => {
               transition={{ duration: 0.2 }}
             >
               <motion.div
-                className="bg-white p-6 rounded-lg shadow-md z-20 backdrop-blur-md bg-opacity-40 border border-gray-500/50 w-[90%] md:w-[70%] lg:w-[50%] py-12"
+                className="bg-white p-6 rounded-lg shadow-md z-20 backdrop-blur-md bg-opacity-80  text-gray-800 border border-gray-500/50 w-[90%] md:w-[70%] lg:w-[50%] py-12"
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
@@ -150,32 +149,31 @@ const Premium = () => {
                 transition={{ duration: 0.3 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-6 ">
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-2 ">
+                <h1 className="flex items-center text-center justify-center font-bold text-2xl text-gray-600">Elite Ticket</h1>
+                  <div className="flex flex-col">
+                    <h1 className="items items-start justify-start text-left semibold">Email</h1>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                    />
+                  </div>
 
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your Name"
-                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
-                  />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter Your Email"
-                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
-                  />
 
-                  <input
-                    type="text"
-                    value={telephone}
-                    onChange={(e) => setTelephone(e.target.value)}
-                    placeholder="Your Phone Number"
-                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
-                  />
+                  <div className="flex flex-col">
+                    <h1 className="items items-start justify-start text-left semibold">Phone Number</h1>
+                    <input
+                      type="text"
+                      value={telephone}
+                      onChange={(e) => setTelephone(e.target.value)}
+                      className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                    />
+                  </div>
                 </form>
-                <button type="submit" onClick={handleSubmit} className="px-8 py-2 bg-gradient-to-br to-[#9750FD] via-[#45A3C3] from-[#4AF986] text-white font-bold rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50">
+
+                <button type="submit" onClick={handleSubmit} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white font-md rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50">
                   {loading ? 'Processing...' : 'Buy Ticket'}
                 </button>
                 {resultMessage && <p>{resultMessage}</p>}

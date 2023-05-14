@@ -1,6 +1,18 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectWallet } from "../features/walletSlice";
+
+
+const CONTRACT_ID = process.env.REACT_APP_CONTRACT_ID
+
 
 const Tickets = () => {
+  const wallet = useSelector(selectWallet);
+  const [email, setEmail] = useState('');
+  const [telephone, setTelephone] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [resultMessage, setResultMessage] = useState('');
   const listVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { delay: 1, staggerChildren: 0.1 } },
@@ -10,6 +22,78 @@ const Tickets = () => {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
   };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isEliteOpen, setIsEliteOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const toggleElitePopup = () => {
+    setIsEliteOpen(!isEliteOpen);
+  };
+
+  const backdropVariants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
+
+  const popupVariants = {
+    visible: { opacity: 1, y: 0, scale: 1 },
+    hidden: { opacity: 0, y: -50, scale: 0.9 },
+  };
+
+
+  function handleAssertionError(errorMessage) {
+    if (errorMessage.includes("This wallet has already purchased a ticket.")) {
+      setResultMessage('You have already purchased a ticket.');
+    } else if (errorMessage.includes("Not enough deposit for the ticket.")) {
+      setResultMessage('Not enough deposit. Please add funds to your wallet.');
+    } else if (errorMessage.includes("Ticket not available.")) {
+      setResultMessage('The ticket is not available.');
+    } else if (errorMessage.includes("Ticket sale limit reached.")) {
+      setResultMessage('The ticket sale limit has been reached.');
+    } else {
+      setResultMessage(errorMessage);
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      if (!wallet) {
+        // Wallet not initialized, call initWallet first
+        console.log("Error")
+      }
+
+      setLoading(true); // Set loading state to true during payment processing
+
+      const args = {
+        email: email ? email : "",
+        telephone: telephone ? telephone : "",
+      }
+
+      const transaction = await wallet.callMethod({
+        contractId: CONTRACT_ID,
+        method: 'purchase_elite_ticket',
+        args,
+        deposit: 0
+      })
+
+      // Handle the result or perform any necessary actions
+      // Retrieve transaction result
+      const result = await wallet.getTransactionResult(transaction.transaction.hash);
+      setResultMessage('Ticket purchased successfully. Result: ' + result);
+      // Payment successful
+    } catch (error) {
+      handleAssertionError("Error: " + error.message)
+    } finally {
+      setLoading(false); // Set loading state back to false after payment processing is completed
+    }
+
+  }
   return (
     <motion.section
       variants={listVariants}
@@ -22,30 +106,31 @@ const Tickets = () => {
         variants={itemVariants}
         initial="hidden"
         animate="visible"
-        className="bg-[#222] flex flex-col items-center justify-between rounded-md py-8 "
+        className="bg-[#222] flex flex-col items-center justify-between rounded-2xl py-8 "
       >
         <div>
           <h1 className="font-bold text-xl md:text-2xl text-gray-400">STANDARD</h1>
-          <h2 className="flex items-center justify-center">
-            <span className="font-bold text-[20px] md:text-[30px]">$</span>
+          <h2 className="flex items-center justify-center group relative">
+            <div className="h-[8px] w-4/5 -rotate-12 bg-red-500 absolute" />
+            <span className="font-bold text-[20px] md:text-[30px] ">$</span>
             <span className="font-bold text-[60px] md:text-[80px] flex items-center">0</span>
             <span className="text-[20px] md:text-[30px]">,00</span>
           </h2>
         </div>
-        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[15px] md:text-lg">
-          <span className="px-4 py-2"> - 2 Full days of event</span>
-          <span className="px-4 py-2">
+        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
+          <span className="px-8 md:px-4 py-2"> - 2 Full days of event</span>
+          <span className="px-8 md:px-4 py-2">
             - Full acess to all event activities (exclude the passport game)
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Join travel game to share prize pool 100 mollion VND
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             Bonus: IF: <br />Complete Quest <br />
             Upgrade to Elite ticket
           </span>
         </div>
-        <button className="mx-auto w-3/4 text-md font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-md hover:scale-105 transition-all duration-200">
+        <button className="mx-auto w-3/4 text-md mt-4 font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-2xl hover:scale-105 transition-all duration-200">
           Buy Tickets
         </button>
       </motion.div>
@@ -55,37 +140,94 @@ const Tickets = () => {
         variants={itemVariants}
         initial="hidden"
         animate="visible"
-        className="bg-[#222] flex flex-col items-center justify-between rounded-md py-8"
+        className="bg-[#222] flex flex-col items-center justify-between rounded-2xl py-8"
       >
-        <div>
+        <div >
           <h1 className="font-bold text-xl md:text-2xl text-gray-400 text-center">
-            STANDARD <br />
+            ELITE TICKET <br />
             (PLASTIC/BRACELET)
           </h1>
-          <h2 className="flex items-center justify-center line-through">
+          <h2 className="flex items-center justify-center relative">
+            <div className="h-[8px] w-4/5 -rotate-12 bg-red-500 absolute" />
+            <div className="rotate-[20deg] right-0 font-bold top-3 px-4 py-1 bg-yellow-500 absolute">FREE NOW</div>
             <span className="font-bold text-[20px] md:text-[30px]">$</span>
             <span className="font-bold text-[60px] md:text-[80px] flex items-center">39</span>
             <span className="text-[30px]">,00</span>
           </h2>
         </div>
-        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[15px] md:text-lg">
-          <span className="px-4 py-2"> - 2 Full days of event</span>
-          <span className="px-4 py-2">
+        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[13px] md:text-[15px]">
+          <span className="px-8 md:px-4 py-2"> - 2 Full days of event</span>
+          <span className="px-8 md:px-4 py-2">
             - Receive Standard Event Gift set from NEAR APAC 2023.
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Full acess to all event activities
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Free tea-break full (Finger food and Beverage)
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Join lucky draw game to share the the prize pool 300 million VND
           </span>
+          <span className="text-center px-8 md:px-4 pt-8">
+            Just 2000 Ticket Left
+          </span>
         </div>
-        <button className="mx-auto w-3/4 text-md font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-md hover:scale-105 transition-all duration-200">
-          Buy Tickets
+
+        <button onClick={toggleElitePopup} className="mt-4 mx-auto w-3/4 text-md font-bold py-2 bg-gradient-to-r from-cyan-300 to-blue-800 rounded-2xl hover:scale-105 transition-all duration-200">
+          Get Ticket
         </button>
+
+        {isEliteOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={backdropVariants}
+            onClick={toggleElitePopup}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-md z-20 backdrop-blur-md bg-opacity-80  text-gray-800 border border-gray-500/50 w-[90%] md:w-[70%] lg:w-[50%] py-12"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={popupVariants}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <form onSubmit={handleSubmit} className="flex flex-col space-y-2 ">
+                <h1 className="flex items-center text-center justify-center font-bold text-2xl text-gray-600">Elite Ticket</h1>
+                <div className="flex flex-col">
+                  <h1 className="items items-start justify-start text-left semibold">Email</h1>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                  />
+                </div>
+
+
+                <div className="flex flex-col">
+                  <h1 className="items items-start justify-start text-left semibold">Phone Number</h1>
+                  <input
+                    type="text"
+                    value={telephone}
+                    onChange={(e) => setTelephone(e.target.value)}
+                    className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                  />
+                </div>
+              </form>
+
+              <button type="submit" onClick={handleSubmit} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white font-md rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50">
+                {loading ? 'Processing...' : 'Buy Ticket'}
+              </button>
+              {resultMessage && <p>{resultMessage}</p>}
+            </motion.div>
+          </motion.div>
+        )}
       </motion.div>
 
       {/* PREMIUM TICKET */}
@@ -93,7 +235,7 @@ const Tickets = () => {
         variants={itemVariants}
         initial="hidden"
         animate="visible"
-        className="bg-gradient-to-tr md:col-span-2 lg:col-span-1 from-[#30CFE5] to-[#0C4EAD] flex flex-col items-center justify-center rounded-md py-8"
+        className="bg-gradient-to-tr md:col-span-2 lg:col-span-1 from-[#30CFE5] to-[#0C4EAD] flex flex-col items-center justify-center rounded-2xl py-8"
       >
         <div>
           <h1 className="font-bold text-2xl text-white text-center">
@@ -107,39 +249,91 @@ const Tickets = () => {
             <span className="text-[20px] md:text-[30px]">,00</span>
           </h2>
         </div>
-        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[15px] md:text-lg">
-          <span className="px-4 py-2">- 2 Full days of event</span>
-          <span className="px-4 py-2">
+        <div className="flex flex-col divide-y-[0.5px] divide-dashed divide-gray-200/50 text-[12px] md:text-[15px]">
+          <span className="px-8 md:px-4 py-2">- 2 Full days of event</span>
+          <span className="px-8 md:px-4 py-2">
             - Full access to all event activities
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Full access zone (VVIP Networking - VVIP Relax lounge - Matching
             zone)
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Join VVIP Opening party (1 day before main event)
           </span>
-          <span className="px-4 py-2">- Join VVIP After party</span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">- Join VVIP After party</span>
+          <span className="px-8 md:px-4 py-2">
             - Free 2 day VIP Lunch at event (With Tickets)
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Free F&B (Snacks - Soft drink/Water)
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             - Receive Premium Event Gift set from NEAR APAC 2023
           </span>
-          <span className="px-4 py-2">
+          <span className="px-8 md:px-4 py-2">
             – Join all of games to share the the prize pool 300 million VND
           </span>
         </div>
 
-        <button className="mx-auto w-3/4 text-md font-bold py-2 bg-white text-gray-800 rounded-md hover:scale-105 transition-all duration-200">
+        <button onClick={togglePopup} className="mx-auto w-3/4 text-md font-bold py-2 bg-white text-gray-800 rounded-2xl hover:scale-105 transition-all duration-200">
           Buy Tickets
         </button>
+
+          {isOpen && (
+            <motion.div
+              className="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={backdropVariants}
+              onClick={togglePopup}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div
+                className="bg-white p-6 rounded-lg shadow-md z-20 backdrop-blur-md bg-opacity-80  text-gray-800 border border-gray-500/50 w-[90%] md:w-[70%] lg:w-[50%] py-12"
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={popupVariants}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-2 ">
+                  <h1 className="flex items-center text-center justify-center font-bold text-2xl text-gray-600">Premium Ticket</h1>
+                  <div className="flex flex-col">
+                    <h1 className="items items-start justify-start text-left semibold">Email</h1>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                    />
+                  </div>
+
+
+                  <div className="flex flex-col">
+                    <h1 className="items items-start justify-start text-left semibold">Phone Number</h1>
+                    <input
+                      type="text"
+                      value={telephone}
+                      onChange={(e) => setTelephone(e.target.value)}
+                      className="rounded-md px-2 py-2 text-gray-800 border border-gray-300"
+                    />
+                  </div>
+                </form>
+
+                <button type="submit" onClick={handleSubmit} className="flex w-full text-center items-center justify-center py-2 mt-8 bg-gradient-to-r from-cyan-300 to-blue-600 text-white   rounded-lg shadow hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 font-bold">
+                  {loading ? 'Processing...' : 'Buy Ticket'}
+                </button>
+                {resultMessage && <p>{resultMessage}</p>}
+              </motion.div>
+            </motion.div>
+          )}
       </motion.div>
     </motion.section>
   );
 };
+
 
 export default Tickets;

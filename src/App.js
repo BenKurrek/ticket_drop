@@ -88,16 +88,14 @@ function App() {
         <Routes>
           <Route path={scannerpath} element={<Scanner />} />
           <Route path={homepath} element={
-            <section className="">
-              <div>
+            <section className="pt-20">
+              <div className="text-center font-bold py-2 ">
                 <h1>🎟️This is your ticket🔑</h1>
+                <h4>Screenshot and show me at the door</h4>
               </div>
-              <h4>Screenshot and show me at the door</h4>
-              <br></br>
-              <div className="flex items-center justify-center">
-                <QrCode link={qrText} />
+              <div className="flex items-center justify-center pb-2">
+                <QrCode link={qrText}  />
               </div>
-              <br></br>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
             </section>} />
         </Routes>
@@ -158,11 +156,11 @@ function App() {
         <Routes>
           <Route path={scannerpath} element={<Scanner />} />
           <Route path={homepath} element={
-            <>
+            <div className="flex flex-col text-center items-center font-bold">
               <h1>Now that you have a wallet...</h1>
               <a href={"https://nearapac.org/"} target="_blank" rel="noopener noreferrer"><button className="onboard_button">Continue your journey into NEAR</button></a>
               <KeyInfo contractId={contractId} privKey={privKey} curUse={curUse} setCurUse={setCurUse} pubKey={pubKey} setPubKey={setPubKey} />
-            </>} />
+            </div>} />
         </Routes>
       </div>
 
